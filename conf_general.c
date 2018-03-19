@@ -778,3 +778,67 @@ bool conf_general_measure_flux_linkage(float current, float duty,
 
 	return true;
 }
+
+bool conf_general_anticogging(float current, float min_rpm, float low_duty, int num_steps) {//, float min_rpm, float low_duty,float *int_limit, float *bemf_coupling_k, int8_t *hall_table, int *hall_res) {
+
+	int ok_steps = 0;
+	const float spinup_to_duty = 0.5;
+
+	mcconf = *mc_interface_get_configuration();
+	mcconf_old = mcconf;
+
+	mcconf.motor_type = MOTOR_TYPE_BLDC;
+	mcconf.sensor_mode = SENSOR_MODE_SENSORLESS;
+	mcconf.comm_mode = COMM_MODE_INTEGRATE;
+	mcconf.sl_phase_advance_at_br = 1.0;
+	mcconf.sl_min_erpm = min_rpm;
+	mcconf.sl_bemf_coupling_k = 300;
+	mcconf.sl_cycle_int_limit = 50;
+	mcconf.sl_min_erpm_cycle_int_limit = 1100;
+	mcconf.m_invert_direction = false;
+	mc_interface_set_configuration(&mcconf);
+
+	// Wait maximum 5s for fault code to disappear
+	for (int i = 0;i < 500;i++) {
+		if (mc_interface_get_fault() == FAULT_CODE_NONE) {
+			break;
+		}
+		chThdSleepMilliseconds(10);
+	}
+
+	// Wait one second for things to get ready after
+	// the fault disappears. (will fry things otherwise...)
+	chThdSleepMilliseconds(1000);
+
+	// Disable timeout
+	systime_t tout = timeout_get_timeout_msec();
+	float tout_c = timeout_get_brake_current();
+	timeout_reset();
+	timeout_configure(60000, 0.0);
+
+	mc_interface_lock();
+
+	mc_interface_lock_override_once();
+	mc_interface_set_current(current);
+
+	// Try to go to each position
+	for (int i=0; i<num_steps; i++){
+		float pos_des = 360.0/num_steps*i;
+		mc_interface_set_pid_pos(pos_des);
+		while (mc_interface_get_pid_pos_now()!=pos_des){
+			chThdSleepMilliseconds(1);
+		}
+	}
+
+	// Release motor
+	mc_interface_lock_override_once();
+	mc_interface_release_motor();
+
+	// Restore settings
+	mc_interface_set_configuration(&mcconf_old);
+	timeout_configure(tout, tout_c);
+
+	mc_interface_unlock();
+
+	return ok_steps == 5 ? true : false;
+}

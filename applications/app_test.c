@@ -17,6 +17,8 @@ static volatile bool is_running = false;
 
 // Private functions
 static void terminal_cmd_test(int argc, const char **argv);
+static void terminal_cmd_test_start(int argc, const char **argv);
+static void terminal_cmd_test_stop(int argc, const char **argv);
 
 void app_custom_configure(app_configuration *conf){
 
@@ -25,6 +27,16 @@ void app_custom_configure(app_configuration *conf){
 			"Print some shit",
 			0,
 			terminal_cmd_test);
+	terminal_register_command_callback(
+			"test_start",
+			"Start test",
+			0,
+			terminal_cmd_test_start);
+	terminal_register_command_callback(
+			"test_stop",
+			"Stop test",
+			0,
+			terminal_cmd_test_stop);
 }
 
 void app_custom_start(void){

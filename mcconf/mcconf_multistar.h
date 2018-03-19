@@ -27,7 +27,7 @@
 /*
  * Parameters
  */
-#define MCCONF_DEFAULT_MOTOR_TYPE			MOTOR_TYPE_BLDC
+#define MCCONF_DEFAULT_MOTOR_TYPE			MOTOR_TYPE_ATC
 #define MCCONF_L_CURRENT_MAX				30.0	// Current limit in Amperes (Upper)
 #define MCCONF_L_CURRENT_MIN				-25.0	// Current limit in Amperes (Lower)
 #define MCCONF_L_MAX_ABS_CURRENT			100.0	// The maximum absolute current above which a fault is generated
@@ -49,9 +49,9 @@
 #define MCCONF_SENSOR_MODE				SENSOR_MODE_SENSORLESS // Sensor mode
 #define MCCONF_SL_MIN_RPM					250		// Auto-commutate below this RPM
 #define MCCONF_SL_MIN_ERPM_CYCLE_INT_LIMIT	1100.0	// Minimum RPM to calculate the BEMF coupling from
-#define MCCONF_SL_CYCLE_INT_LIMIT			80.0	// Flux integrator limit 0 ERPM
+#define MCCONF_SL_CYCLE_INT_LIMIT			38.87	// Flux integrator limit 0 ERPM
 #define MCCONF_SL_PHASE_ADVANCE_AT_BR	0.8		// Flux integrator limit percentage at MCPWM_CYCLE_INT_START_RPM_BR ERPM
-#define MCCONF_SL_BEMF_COUPLING_K		750.0	// Input voltage to bemf coupling constant
+#define MCCONF_SL_BEMF_COUPLING_K		829.22	// Input voltage to bemf coupling constant
 
 // FOC settings
 #define MCCONF_FOC_CURRENT_KP			0.03
@@ -69,7 +69,21 @@
 #define MCCONF_S_PID_KP					0.0001	// Proportional gain
 #define MCCONF_S_PID_KI					0.002	// Integral gain
 #define MCCONF_S_PID_KD					0.0		// Derivative gain
-#define MCCONF_S_PID_MIN_RPM				1200.0	// Minimum allowed RPM
+#define MCCONF_S_PID_MIN_RPM			1200.0	// Minimum allowed RPM
+
+// Position PID parameters
+#ifndef MCCONF_P_PID_KP
+#define MCCONF_P_PID_KP                 0.03    // Proportional gain
+#endif
+#ifndef MCCONF_P_PID_KI
+#define MCCONF_P_PID_KI                 0.0     // Integral gain
+#endif
+#ifndef MCCONF_P_PID_KD
+#define MCCONF_P_PID_KD                 0.0004  // Derivative gain
+#endif
+#ifndef MCCONF_P_PID_ANG_DIV
+#define MCCONF_P_PID_ANG_DIV            1.0     // Divide angle by this value
+#endif
 
 #define MCCONF_M_SENSOR_PORT_MODE       SENSOR_PORT_MODE_AS5047_SPI
 

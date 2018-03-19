@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
   55              	.L2:
   56 0018 07000000 		.word	__heap_base__+7
   57 001c 00000000 		.word	__heap_end__
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 2
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 2
 
 
   58 0020 00000000 		.word	.LANCHOR0
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  112 0018 8B42     		cmp	r3, r1
  113              	.LVL3:
  114              		.loc 1 143 0
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 3
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 3
 
 
  115 001a 9DBF     		ittte	ls
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  169              		.cfi_startproc
  170              		@ args = 0, pretend = 0, frame = 0
  171              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 4
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 4
 
 
  172              		@ link register save eliminated.
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  226              		@ frame_needed = 0, uses_anonymous_args = 0
  227              		@ link register save eliminated.
  228              		.loc 1 158 0
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 5
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 5
 
 
  229 0000 024A     		ldr	r2, .L18
@@ -292,13 +292,13 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  277 0006 00000000 		.4byte	.Ldebug_abbrev0
  278 000a 04       		.byte	0x4
  279 000b 01       		.uleb128 0x1
- 280 000c B6040000 		.4byte	.LASF118
+ 280 000c E5040000 		.4byte	.LASF118
  281 0010 0C       		.byte	0xc
- 282 0011 8D020000 		.4byte	.LASF119
- 283 0015 E8050000 		.4byte	.LASF120
+ 282 0011 BC020000 		.4byte	.LASF119
+ 283 0015 D5010000 		.4byte	.LASF120
  284 0019 00000000 		.4byte	.Ldebug_ranges0+0
  285 001d 00000000 		.4byte	0
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 6
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 6
 
 
  286 0021 00000000 		.4byte	.Ldebug_line0
@@ -327,17 +327,17 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  309 0050 04       		.uleb128 0x4
  310 0051 01       		.byte	0x1
  311 0052 08       		.byte	0x8
- 312 0053 2D030000 		.4byte	.LASF4
+ 312 0053 5C030000 		.4byte	.LASF4
  313 0057 04       		.uleb128 0x4
  314 0058 02       		.byte	0x2
  315 0059 05       		.byte	0x5
- 316 005a 50030000 		.4byte	.LASF5
+ 316 005a 7F030000 		.4byte	.LASF5
  317 005e 04       		.uleb128 0x4
  318 005f 02       		.byte	0x2
  319 0060 07       		.byte	0x7
- 320 0061 DB010000 		.4byte	.LASF6
+ 320 0061 0A020000 		.4byte	.LASF6
  321 0065 03       		.uleb128 0x3
- 322 0066 2C020000 		.4byte	.LASF7
+ 322 0066 5B020000 		.4byte	.LASF7
  323 006a 04       		.byte	0x4
  324 006b 3F       		.byte	0x3f
  325 006c 70000000 		.4byte	0x70
@@ -346,23 +346,23 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  328 0072 05       		.byte	0x5
  329 0073 23010000 		.4byte	.LASF8
  330 0077 03       		.uleb128 0x3
- 331 0078 47040000 		.4byte	.LASF9
+ 331 0078 76040000 		.4byte	.LASF9
  332 007c 04       		.byte	0x4
  333 007d 41       		.byte	0x41
  334 007e 82000000 		.4byte	0x82
  335 0082 04       		.uleb128 0x4
  336 0083 04       		.byte	0x4
  337 0084 07       		.byte	0x7
- 338 0085 FA030000 		.4byte	.LASF10
+ 338 0085 29040000 		.4byte	.LASF10
  339 0089 04       		.uleb128 0x4
  340 008a 08       		.byte	0x8
  341 008b 05       		.byte	0x5
  342 008c CC000000 		.4byte	.LASF11
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 7
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 7
 
 
  343 0090 03       		.uleb128 0x3
- 344 0091 E2020000 		.4byte	.LASF12
+ 344 0091 11030000 		.4byte	.LASF12
  345 0095 04       		.byte	0x4
  346 0096 5B       		.byte	0x5b
  347 0097 9B000000 		.4byte	0x9b
@@ -371,17 +371,17 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  350 009d 07       		.byte	0x7
  351 009e 66000000 		.4byte	.LASF13
  352 00a2 03       		.uleb128 0x3
- 353 00a3 E0050000 		.4byte	.LASF14
+ 353 00a3 0F060000 		.4byte	.LASF14
  354 00a7 05       		.byte	0x5
  355 00a8 18       		.byte	0x18
  356 00a9 45000000 		.4byte	0x45
  357 00ad 03       		.uleb128 0x3
- 358 00ae 25030000 		.4byte	.LASF15
+ 358 00ae 54030000 		.4byte	.LASF15
  359 00b2 05       		.byte	0x5
  360 00b3 2C       		.byte	0x2c
  361 00b4 65000000 		.4byte	0x65
  362 00b8 03       		.uleb128 0x3
- 363 00b9 D2030000 		.4byte	.LASF16
+ 363 00b9 01040000 		.4byte	.LASF16
  364 00bd 05       		.byte	0x5
  365 00be 30       		.byte	0x30
  366 00bf 77000000 		.4byte	0x77
@@ -393,12 +393,12 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  372 00ce 05       		.uleb128 0x5
  373 00cf AD000000 		.4byte	0xad
  374 00d3 03       		.uleb128 0x3
- 375 00d4 79040000 		.4byte	.LASF18
+ 375 00d4 A8040000 		.4byte	.LASF18
  376 00d8 06       		.byte	0x6
  377 00d9 45       		.byte	0x45
  378 00da B8000000 		.4byte	0xb8
  379 00de 03       		.uleb128 0x3
- 380 00df 0A020000 		.4byte	.LASF19
+ 380 00df 39020000 		.4byte	.LASF19
  381 00e3 06       		.byte	0x6
  382 00e4 48       		.byte	0x48
  383 00e5 A2000000 		.4byte	0xa2
@@ -408,7 +408,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  387 00ef 49       		.byte	0x49
  388 00f0 A2000000 		.4byte	0xa2
  389 00f4 03       		.uleb128 0x3
- 390 00f5 ED020000 		.4byte	.LASF21
+ 390 00f5 1C030000 		.4byte	.LASF21
  391 00f9 06       		.byte	0x6
  392 00fa 4A       		.byte	0x4a
  393 00fb A2000000 		.4byte	0xa2
@@ -418,20 +418,20 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  397 0105 4B       		.byte	0x4b
  398 0106 A2000000 		.4byte	0xa2
  399 010a 03       		.uleb128 0x3
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 8
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 8
 
 
- 400 010b 0C030000 		.4byte	.LASF23
+ 400 010b 3B030000 		.4byte	.LASF23
  401 010f 06       		.byte	0x6
  402 0110 4C       		.byte	0x4c
  403 0111 B8000000 		.4byte	0xb8
  404 0115 03       		.uleb128 0x3
- 405 0116 F8010000 		.4byte	.LASF24
+ 405 0116 27020000 		.4byte	.LASF24
  406 011a 06       		.byte	0x6
  407 011b 4D       		.byte	0x4d
  408 011c AD000000 		.4byte	0xad
  409 0120 03       		.uleb128 0x3
- 410 0121 20020000 		.4byte	.LASF25
+ 410 0121 4F020000 		.4byte	.LASF25
  411 0125 06       		.byte	0x6
  412 0126 4F       		.byte	0x4f
  413 0127 B8000000 		.4byte	0xb8
@@ -441,29 +441,29 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  417 0131 51       		.byte	0x51
  418 0132 AD000000 		.4byte	0xad
  419 0136 03       		.uleb128 0x3
- 420 0137 29040000 		.4byte	.LASF27
+ 420 0137 58040000 		.4byte	.LASF27
  421 013b 07       		.byte	0x7
  422 013c 33       		.byte	0x33
  423 013d B8000000 		.4byte	0xb8
  424 0141 03       		.uleb128 0x3
- 425 0142 11040000 		.4byte	.LASF28
+ 425 0142 40040000 		.4byte	.LASF28
  426 0146 07       		.byte	0x7
  427 0147 3F       		.byte	0x3f
  428 0148 4C010000 		.4byte	0x14c
  429 014c 06       		.uleb128 0x6
- 430 014d EE010000 		.4byte	.LASF50
+ 430 014d 1D020000 		.4byte	.LASF50
  431 0151 48       		.byte	0x48
  432 0152 08       		.byte	0x8
  433 0153 C2       		.byte	0xc2
  434 0154 51020000 		.4byte	0x251
  435 0158 07       		.uleb128 0x7
- 436 0159 87030000 		.4byte	.LASF29
+ 436 0159 B6030000 		.4byte	.LASF29
  437 015d 08       		.byte	0x8
  438 015e C3       		.byte	0xc3
  439 015f 5C020000 		.4byte	0x25c
  440 0163 00       		.byte	0
  441 0164 07       		.uleb128 0x7
- 442 0165 05030000 		.4byte	.LASF30
+ 442 0165 34030000 		.4byte	.LASF30
  443 0169 08       		.byte	0x8
  444 016a C5       		.byte	0xc5
  445 016b 5C020000 		.4byte	0x25c
@@ -475,10 +475,10 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  451 0177 0A010000 		.4byte	0x10a
  452 017b 08       		.byte	0x8
  453 017c 07       		.uleb128 0x7
- 454 017d 4C060000 		.4byte	.LASF32
+ 454 017d 4F060000 		.4byte	.LASF32
  455 0181 08       		.byte	0x8
  456 0182 C8       		.byte	0xc8
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 9
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 9
 
 
  457 0183 8C040000 		.4byte	0x48c
@@ -490,37 +490,37 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  463 018f 5C020000 		.4byte	0x25c
  464 0193 10       		.byte	0x10
  465 0194 07       		.uleb128 0x7
- 466 0195 B1020000 		.4byte	.LASF34
+ 466 0195 E0020000 		.4byte	.LASF34
  467 0199 08       		.byte	0x8
  468 019a CB       		.byte	0xcb
  469 019b 5C020000 		.4byte	0x25c
  470 019f 14       		.byte	0x14
  471 01a0 07       		.uleb128 0x7
- 472 01a1 1B060000 		.4byte	.LASF35
+ 472 01a1 1E060000 		.4byte	.LASF35
  473 01a5 08       		.byte	0x8
  474 01a6 D2       		.byte	0xd2
  475 01a7 D1060000 		.4byte	0x6d1
  476 01ab 18       		.byte	0x18
  477 01ac 07       		.uleb128 0x7
- 478 01ad 5A030000 		.4byte	.LASF36
+ 478 01ad 89030000 		.4byte	.LASF36
  479 01b1 08       		.byte	0x8
  480 01b2 DD       		.byte	0xdd
  481 01b3 E9000000 		.4byte	0xe9
  482 01b7 1C       		.byte	0x1c
  483 01b8 07       		.uleb128 0x7
- 484 01b9 8E030000 		.4byte	.LASF37
+ 484 01b9 BD030000 		.4byte	.LASF37
  485 01bd 08       		.byte	0x8
  486 01be E1       		.byte	0xe1
  487 01bf DE000000 		.4byte	0xde
  488 01c3 1D       		.byte	0x1d
  489 01c4 07       		.uleb128 0x7
- 490 01c5 AF040000 		.4byte	.LASF38
+ 490 01c5 DE040000 		.4byte	.LASF38
  491 01c9 08       		.byte	0x8
  492 01ca E6       		.byte	0xe6
  493 01cb F4000000 		.4byte	0xf4
  494 01cf 1E       		.byte	0x1e
  495 01d0 07       		.uleb128 0x7
- 496 01d1 62030000 		.4byte	.LASF39
+ 496 01d1 91030000 		.4byte	.LASF39
  497 01d5 08       		.byte	0x8
  498 01d6 EC       		.byte	0xec
  499 01d7 FF000000 		.4byte	0xff
@@ -538,10 +538,10 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  511 01f0 0C060000 		.4byte	0x60c
  512 01f4 24       		.byte	0x24
  513 01f5 09       		.uleb128 0x9
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 10
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 10
 
 
- 514 01f6 50020000 		.4byte	.LASF41
+ 514 01f6 7F020000 		.4byte	.LASF41
  515 01fa 08       		.byte	0x8
  516 01fb 3601     		.2byte	0x136
  517 01fd 62020000 		.4byte	0x262
@@ -553,25 +553,25 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  523 020a 86020000 		.4byte	0x286
  524 020e 2C       		.byte	0x2c
  525 020f 09       		.uleb128 0x9
- 526 0210 3E060000 		.4byte	.LASF43
+ 526 0210 41060000 		.4byte	.LASF43
  527 0214 08       		.byte	0x8
  528 0215 4001     		.2byte	0x140
  529 0217 15010000 		.4byte	0x115
  530 021b 34       		.byte	0x34
  531 021c 09       		.uleb128 0x9
- 532 021d C7030000 		.4byte	.LASF44
+ 532 021d F6030000 		.4byte	.LASF44
  533 0221 08       		.byte	0x8
  534 0222 4601     		.2byte	0x146
  535 0224 20010000 		.4byte	0x120
  536 0228 38       		.byte	0x38
  537 0229 09       		.uleb128 0x9
- 538 022a 46030000 		.4byte	.LASF45
+ 538 022a 75030000 		.4byte	.LASF45
  539 022e 08       		.byte	0x8
  540 022f 4D01     		.2byte	0x14d
  541 0231 CB060000 		.4byte	0x6cb
  542 0235 3C       		.byte	0x3c
  543 0236 09       		.uleb128 0x9
- 544 0237 33040000 		.4byte	.LASF46
+ 544 0237 62040000 		.4byte	.LASF46
  545 023b 08       		.byte	0x8
  546 023c 5101     		.2byte	0x151
  547 023e 0A010000 		.4byte	0x10a
@@ -584,7 +584,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  554 024f 44       		.byte	0x44
  555 0250 00       		.byte	0
  556 0251 03       		.uleb128 0x3
- 557 0252 63020000 		.4byte	.LASF48
+ 557 0252 92020000 		.4byte	.LASF48
  558 0256 07       		.byte	0x7
  559 0257 44       		.byte	0x44
  560 0258 5C020000 		.4byte	0x25c
@@ -592,13 +592,13 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  562 025d 04       		.byte	0x4
  563 025e 41010000 		.4byte	0x141
  564 0262 03       		.uleb128 0x3
- 565 0263 41020000 		.4byte	.LASF49
+ 565 0263 70020000 		.4byte	.LASF49
  566 0267 07       		.byte	0x7
  567 0268 49       		.byte	0x49
  568 0269 6D020000 		.4byte	0x26d
  569 026d 06       		.uleb128 0x6
- 570 026e EA030000 		.4byte	.LASF51
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 11
+ 570 026e 19040000 		.4byte	.LASF51
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 11
 
 
  571 0272 04       		.byte	0x4
@@ -606,14 +606,14 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  573 0274 B0       		.byte	0xb0
  574 0275 86020000 		.4byte	0x286
  575 0279 07       		.uleb128 0x7
- 576 027a 87030000 		.4byte	.LASF29
+ 576 027a B6030000 		.4byte	.LASF29
  577 027e 08       		.byte	0x8
  578 027f B1       		.byte	0xb1
  579 0280 5C020000 		.4byte	0x25c
  580 0284 00       		.byte	0
  581 0285 00       		.byte	0
  582 0286 03       		.uleb128 0x3
- 583 0287 96040000 		.4byte	.LASF52
+ 583 0287 C5040000 		.4byte	.LASF52
  584 028b 07       		.byte	0x7
  585 028c 50       		.byte	0x50
  586 028d 91020000 		.4byte	0x291
@@ -624,13 +624,13 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  591 0298 B7       		.byte	0xb7
  592 0299 B6020000 		.4byte	0x2b6
  593 029d 07       		.uleb128 0x7
- 594 029e 87030000 		.4byte	.LASF29
+ 594 029e B6030000 		.4byte	.LASF29
  595 02a2 08       		.byte	0x8
  596 02a3 B8       		.byte	0xb8
  597 02a4 5C020000 		.4byte	0x25c
  598 02a8 00       		.byte	0
  599 02a9 07       		.uleb128 0x7
- 600 02aa 05030000 		.4byte	.LASF30
+ 600 02aa 34030000 		.4byte	.LASF30
  601 02ae 08       		.byte	0x8
  602 02af B9       		.byte	0xb9
  603 02b0 5C020000 		.4byte	0x25c
@@ -642,28 +642,28 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  609 02bc 57       		.byte	0x57
  610 02bd C1020000 		.4byte	0x2c1
  611 02c1 0B       		.uleb128 0xb
- 612 02c2 12020000 		.4byte	.LASF55
+ 612 02c2 41020000 		.4byte	.LASF55
  613 02c6 1C       		.byte	0x1c
  614 02c7 08       		.byte	0x8
  615 02c8 9001     		.2byte	0x190
  616 02ca 1D030000 		.4byte	0x31d
  617 02ce 09       		.uleb128 0x9
- 618 02cf E2030000 		.4byte	.LASF56
+ 618 02cf 11040000 		.4byte	.LASF56
  619 02d3 08       		.byte	0x8
  620 02d4 9101     		.2byte	0x191
  621 02d6 86020000 		.4byte	0x286
  622 02da 00       		.byte	0
  623 02db 09       		.uleb128 0x9
- 624 02dc 79030000 		.4byte	.LASF57
+ 624 02dc A8030000 		.4byte	.LASF57
  625 02e0 08       		.byte	0x8
  626 02e1 9201     		.2byte	0x192
  627 02e3 0A010000 		.4byte	0x10a
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 12
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 12
 
 
  628 02e7 08       		.byte	0x8
  629 02e8 09       		.uleb128 0x9
- 630 02e9 B9020000 		.4byte	.LASF58
+ 630 02e9 E8020000 		.4byte	.LASF58
  631 02ed 08       		.byte	0x8
  632 02ee 9401     		.2byte	0x194
  633 02f0 8C040000 		.4byte	0x48c
@@ -675,20 +675,20 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  639 02fd 5C020000 		.4byte	0x25c
  640 0301 10       		.byte	0x10
  641 0302 09       		.uleb128 0x9
- 642 0303 DA020000 		.4byte	.LASF60
+ 642 0303 09030000 		.4byte	.LASF60
  643 0307 08       		.byte	0x8
  644 0308 9801     		.2byte	0x198
  645 030a 5C020000 		.4byte	0x25c
  646 030e 14       		.byte	0x14
  647 030f 09       		.uleb128 0x9
- 648 0310 D0020000 		.4byte	.LASF61
+ 648 0310 FF020000 		.4byte	.LASF61
  649 0314 08       		.byte	0x8
  650 0315 9B01     		.2byte	0x19b
  651 0317 5C020000 		.4byte	0x25c
  652 031b 18       		.byte	0x18
  653 031c 00       		.byte	0
  654 031d 03       		.uleb128 0x3
- 655 031e 3E040000 		.4byte	.LASF62
+ 655 031e 6D040000 		.4byte	.LASF62
  656 0322 07       		.byte	0x7
  657 0323 5C       		.byte	0x5c
  658 0324 28030000 		.4byte	0x328
@@ -703,12 +703,12 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  667 0339 0E       		.uleb128 0xe
  668 033a 04       		.byte	0x4
  669 033b 03       		.uleb128 0x3
- 670 033c F5020000 		.4byte	.LASF63
+ 670 033c 24030000 		.4byte	.LASF63
  671 0340 07       		.byte	0x7
  672 0341 61       		.byte	0x61
  673 0342 46030000 		.4byte	0x346
  674 0346 0B       		.uleb128 0xb
- 675 0347 A9030000 		.4byte	.LASF64
+ 675 0347 D8030000 		.4byte	.LASF64
  676 034b 14       		.byte	0x14
  677 034c 08       		.byte	0x8
  678 034d 6B01     		.2byte	0x16b
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  682 0358 08       		.byte	0x8
  683 0359 6C01     		.2byte	0x16c
  684 035b E8060000 		.4byte	0x6e8
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 13
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 13
 
 
  685 035f 00       		.byte	0
@@ -735,13 +735,13 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  696 0375 36010000 		.4byte	0x136
  697 0379 08       		.byte	0x8
  698 037a 09       		.uleb128 0x9
- 699 037b 52060000 		.4byte	.LASF68
+ 699 037b 55060000 		.4byte	.LASF68
  700 037f 08       		.byte	0x8
  701 0380 6F01     		.2byte	0x16f
  702 0382 1D030000 		.4byte	0x31d
  703 0386 0C       		.byte	0xc
  704 0387 09       		.uleb128 0x9
- 705 0388 81040000 		.4byte	.LASF69
+ 705 0388 B0040000 		.4byte	.LASF69
  706 038c 08       		.byte	0x8
  707 038d 7101     		.2byte	0x171
  708 038f 39030000 		.4byte	0x339
@@ -753,7 +753,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  714 039b 66       		.byte	0x66
  715 039c A0030000 		.4byte	0x3a0
  716 03a0 0B       		.uleb128 0xb
- 717 03a1 76020000 		.4byte	.LASF71
+ 717 03a1 A5020000 		.4byte	.LASF71
  718 03a5 10       		.byte	0x10
  719 03a6 08       		.byte	0x8
  720 03a7 7B01     		.2byte	0x17b
@@ -777,8 +777,8 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  738 03cf 36010000 		.4byte	0x136
  739 03d3 08       		.byte	0x8
  740 03d4 09       		.uleb128 0x9
- 741 03d5 27060000 		.4byte	.LASF72
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 14
+ 741 03d5 2A060000 		.4byte	.LASF72
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 14
 
 
  742 03d9 08       		.byte	0x8
@@ -798,14 +798,14 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  756 03f4 A201     		.2byte	0x1a2
  757 03f6 08040000 		.4byte	0x408
  758 03fa 09       		.uleb128 0x9
- 759 03fb 60040000 		.4byte	.LASF75
+ 759 03fb 8F040000 		.4byte	.LASF75
  760 03ff 08       		.byte	0x8
  761 0400 AA01     		.2byte	0x1aa
  762 0402 EE060000 		.4byte	0x6ee
  763 0406 00       		.byte	0
  764 0407 00       		.byte	0
  765 0408 03       		.uleb128 0x3
- 766 0409 FE010000 		.4byte	.LASF76
+ 766 0409 2D020000 		.4byte	.LASF76
  767 040d 07       		.byte	0x7
  768 040e 70       		.byte	0x70
  769 040f 13040000 		.4byte	0x413
@@ -816,7 +816,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  774 041b C201     		.2byte	0x1c2
  775 041d 6F040000 		.4byte	0x46f
  776 0421 09       		.uleb128 0x9
- 777 0422 DA050000 		.4byte	.LASF78
+ 777 0422 09060000 		.4byte	.LASF78
  778 0426 08       		.byte	0x8
  779 0427 C601     		.2byte	0x1c6
  780 0429 B6020000 		.4byte	0x2b6
@@ -838,7 +838,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  796 044d 08       		.byte	0x8
  797 044e D201     		.2byte	0x1d2
  798 0450 41010000 		.4byte	0x141
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 15
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 15
 
 
  799 0454 30       		.byte	0x30
@@ -858,19 +858,19 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  813 046f 04       		.uleb128 0x4
  814 0470 04       		.byte	0x4
  815 0471 07       		.byte	0x7
- 816 0472 5A020000 		.4byte	.LASF82
+ 816 0472 89020000 		.4byte	.LASF82
  817 0476 03       		.uleb128 0x3
  818 0477 5A010000 		.4byte	.LASF83
  819 047b 09       		.byte	0x9
  820 047c 65       		.byte	0x65
  821 047d 39030000 		.4byte	0x339
  822 0481 03       		.uleb128 0x3
- 823 0482 36020000 		.4byte	.LASF84
+ 823 0482 65020000 		.4byte	.LASF84
  824 0486 09       		.byte	0x9
  825 0487 6D       		.byte	0x6d
  826 0488 C3000000 		.4byte	0xc3
  827 048c 06       		.uleb128 0x6
- 828 048d 71040000 		.4byte	.LASF85
+ 828 048d A0040000 		.4byte	.LASF85
  829 0491 04       		.byte	0x4
  830 0492 09       		.byte	0x9
  831 0493 89       		.byte	0x89
@@ -898,7 +898,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  853 04be 73313700 		.ascii	"s17\000"
  854 04c2 0A       		.byte	0xa
  855 04c3 F7       		.byte	0xf7
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 16
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 16
 
 
  856 04c4 76040000 		.4byte	0x476
@@ -958,7 +958,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  910 0531 76040000 		.4byte	0x476
  911 0535 28       		.byte	0x28
  912 0536 08       		.uleb128 0x8
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 17
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 17
 
 
  913 0537 73323700 		.ascii	"s27\000"
@@ -1018,7 +1018,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  967 05a8 723800   		.ascii	"r8\000"
  968 05ab 0A       		.byte	0xa
  969 05ac 0B01     		.2byte	0x10b
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 18
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 18
 
 
  970 05ae 76040000 		.4byte	0x476
@@ -1057,14 +1057,14 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1003 05ef 38       		.byte	0x38
  1004 05f0 01060000 		.4byte	0x601
  1005 05f4 07       		.uleb128 0x7
- 1006 05f5 6A040000 		.4byte	.LASF87
+ 1006 05f5 99040000 		.4byte	.LASF87
  1007 05f9 0B       		.byte	0xb
  1008 05fa 3C       		.byte	0x3c
  1009 05fb D3000000 		.4byte	0xd3
  1010 05ff 00       		.byte	0
  1011 0600 00       		.byte	0
  1012 0601 03       		.uleb128 0x3
- 1013 0602 BF020000 		.4byte	.LASF88
+ 1013 0602 EE020000 		.4byte	.LASF88
  1014 0606 0B       		.byte	0xb
  1015 0607 3D       		.byte	0x3d
  1016 0608 EC050000 		.4byte	0x5ec
@@ -1078,7 +1078,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1024 0619 08       		.byte	0x8
  1025 061a 0101     		.2byte	0x101
  1026 061c 15010000 		.4byte	0x115
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 19
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 19
 
 
  1027 0620 13       		.uleb128 0x13
@@ -1087,7 +1087,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1030 0626 0801     		.2byte	0x108
  1031 0628 15010000 		.4byte	0x115
  1032 062c 13       		.uleb128 0x13
- 1033 062d 14060000 		.4byte	.LASF91
+ 1033 062d 17060000 		.4byte	.LASF91
  1034 0631 08       		.byte	0x8
  1035 0632 0F01     		.2byte	0x10f
  1036 0634 39030000 		.4byte	0x339
@@ -1102,12 +1102,12 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1045 064a 1E01     		.2byte	0x11e
  1046 064c 94060000 		.4byte	0x694
  1047 0650 13       		.uleb128 0x13
- 1048 0651 DB030000 		.4byte	.LASF94
+ 1048 0651 0A040000 		.4byte	.LASF94
  1049 0655 08       		.byte	0x8
  1050 0656 2701     		.2byte	0x127
  1051 0658 CB060000 		.4byte	0x6cb
  1052 065c 13       		.uleb128 0x13
- 1053 065d 80030000 		.4byte	.LASF95
+ 1053 065d AF030000 		.4byte	.LASF95
  1054 0661 08       		.byte	0x8
  1055 0662 2F01     		.2byte	0x12f
  1056 0664 20010000 		.4byte	0x120
@@ -1116,7 +1116,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1059 066a 04       		.byte	0x4
  1060 066b 51020000 		.4byte	0x251
  1061 066f 06       		.uleb128 0x6
- 1062 0670 BA030000 		.4byte	.LASF96
+ 1062 0670 E9030000 		.4byte	.LASF96
  1063 0674 0C       		.byte	0xc
  1064 0675 0C       		.byte	0xc
  1065 0676 34       		.byte	0x34
@@ -1128,7 +1128,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1071 0682 86020000 		.4byte	0x286
  1072 0686 00       		.byte	0
  1073 0687 07       		.uleb128 0x7
- 1074 0688 D5010000 		.4byte	.LASF98
+ 1074 0688 04020000 		.4byte	.LASF98
  1075 068c 0C       		.byte	0xc
  1076 068d 37       		.byte	0x37
  1077 068e 2B010000 		.4byte	0x12b
@@ -1138,10 +1138,10 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1081 0695 04       		.byte	0x4
  1082 0696 6F060000 		.4byte	0x66f
  1083 069a 06       		.uleb128 0x6
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 20
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 20
 
 
- 1084 069b A6040000 		.4byte	.LASF99
+ 1084 069b D5040000 		.4byte	.LASF99
  1085 069f 10       		.byte	0x10
  1086 06a0 0D       		.byte	0xd
  1087 06a1 39       		.byte	0x39
@@ -1153,13 +1153,13 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1093 06ad 86020000 		.4byte	0x286
  1094 06b1 00       		.byte	0
  1095 06b2 07       		.uleb128 0x7
- 1096 06b3 44060000 		.4byte	.LASF101
+ 1096 06b3 47060000 		.4byte	.LASF101
  1097 06b7 0D       		.byte	0xd
  1098 06b8 3C       		.byte	0x3c
  1099 06b9 5C020000 		.4byte	0x25c
  1100 06bd 08       		.byte	0x8
  1101 06be 07       		.uleb128 0x7
- 1102 06bf 22040000 		.4byte	.LASF102
+ 1102 06bf 51040000 		.4byte	.LASF102
  1103 06c3 0D       		.byte	0xd
  1104 06c4 3E       		.byte	0x3e
  1105 06c5 0E070000 		.4byte	0x70e
@@ -1174,7 +1174,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1114 06d7 04       		.uleb128 0x4
  1115 06d8 01       		.byte	0x1
  1116 06d9 08       		.byte	0x8
- 1117 06da 0C040000 		.4byte	.LASF103
+ 1117 06da 3B040000 		.4byte	.LASF103
  1118 06de 14       		.uleb128 0x14
  1119 06df D7060000 		.4byte	0x6d7
  1120 06e3 05       		.uleb128 0x5
@@ -1198,7 +1198,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1138 070a 9A060000 		.4byte	0x69a
  1139 070e 0A       		.uleb128 0xa
  1140 070f 04       		.byte	0x4
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 21
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 21
 
 
  1141 0710 03070000 		.4byte	0x703
@@ -1206,7 +1206,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1143 0715 04       		.byte	0x4
  1144 0716 A2000000 		.4byte	0xa2
  1145 071a 17       		.uleb128 0x17
- 1146 071b 52040000 		.4byte	.LASF107
+ 1146 071b 81040000 		.4byte	.LASF107
  1147 071f 02       		.byte	0x2
  1148 0720 2002     		.2byte	0x220
  1149 0722 03       		.byte	0x3
@@ -1228,15 +1228,15 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1165 0743 CA01     		.2byte	0x1ca
  1166 0745 03       		.byte	0x3
  1167 0746 17       		.uleb128 0x17
- 1168 0747 32060000 		.4byte	.LASF108
+ 1168 0747 35060000 		.4byte	.LASF108
  1169 074b 0E       		.byte	0xe
  1170 074c 6601     		.2byte	0x166
  1171 074e 03       		.byte	0x3
  1172 074f 61070000 		.4byte	0x761
  1173 0753 1A       		.uleb128 0x1a
- 1174 0754 96030000 		.4byte	.LASF111
+ 1174 0754 C5030000 		.4byte	.LASF111
  1175 0758 71070000 		.4byte	0x771
- 1176 075c 32060000 		.4byte	.LASF108
+ 1176 075c 35060000 		.4byte	.LASF108
  1177 0760 00       		.byte	0
  1178 0761 15       		.uleb128 0x15
  1179 0762 DE060000 		.4byte	0x6de
@@ -1255,10 +1255,10 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1192 0781 01       		.byte	0x1
  1193 0782 9B070000 		.4byte	0x79b
  1194 0786 1C       		.uleb128 0x1c
- 1195 0787 22060000 		.4byte	.LASF110
+ 1195 0787 25060000 		.4byte	.LASF110
  1196 078b 01       		.byte	0x1
  1197 078c 83       		.byte	0x83
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 22
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 22
 
 
  1198 078d 2C000000 		.4byte	0x2c
@@ -1269,12 +1269,12 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1203 0796 39030000 		.4byte	0x339
  1204 079a 00       		.byte	0
  1205 079b 19       		.uleb128 0x19
- 1206 079c 9F030000 		.4byte	.LASF112
+ 1206 079c CE030000 		.4byte	.LASF112
  1207 07a0 0E       		.byte	0xe
  1208 07a1 5A01     		.2byte	0x15a
  1209 07a3 03       		.byte	0x3
  1210 07a4 1E       		.uleb128 0x1e
- 1211 07a5 3B030000 		.4byte	.LASF122
+ 1211 07a5 6A030000 		.4byte	.LASF122
  1212 07a9 01       		.byte	0x1
  1213 07aa 4E       		.byte	0x4e
  1214 07ab 00000000 		.4byte	.LFB219
@@ -1283,12 +1283,12 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1217 07b4 9C       		.byte	0x9c
  1218 07b5 D0070000 		.4byte	0x7d0
  1219 07b9 1F       		.uleb128 0x1f
- 1220 07ba 88040000 		.4byte	.LASF113
+ 1220 07ba B7040000 		.4byte	.LASF113
  1221 07be 01       		.byte	0x1
  1222 07bf 50       		.byte	0x50
  1223 07c0 D0070000 		.4byte	0x7d0
  1224 07c4 1F       		.uleb128 0x1f
- 1225 07c5 6C030000 		.4byte	.LASF114
+ 1225 07c5 9B030000 		.4byte	.LASF114
  1226 07c9 01       		.byte	0x1
  1227 07ca 51       		.byte	0x51
  1228 07cb D0070000 		.4byte	0x7d0
@@ -1309,7 +1309,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1243 07ef 9C       		.byte	0x9c
  1244 07f0 C4080000 		.4byte	0x8c4
  1245 07f4 22       		.uleb128 0x22
- 1246 07f5 22060000 		.4byte	.LASF110
+ 1246 07f5 25060000 		.4byte	.LASF110
  1247 07f9 01       		.byte	0x1
  1248 07fa 6D       		.byte	0x6d
  1249 07fb 2C000000 		.4byte	0x2c
@@ -1318,7 +1318,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1252 0804 7000     		.ascii	"p\000"
  1253 0806 01       		.byte	0x1
  1254 0807 6E       		.byte	0x6e
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 23
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 23
 
 
  1255 0808 39030000 		.4byte	0x339
@@ -1378,7 +1378,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1309 0891 29       		.uleb128 0x29
  1310 0892 53070000 		.4byte	0x753
  1311 0896 24       		.uleb128 0x24
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 24
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 24
 
 
  1312 0897 3D070000 		.4byte	0x73d
@@ -1416,7 +1416,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1344 08e6 52       		.byte	0x52
  1345 08e7 00       		.byte	0
  1346 08e8 2B       		.uleb128 0x2b
- 1347 08e9 14030000 		.4byte	.LASF124
+ 1347 08e9 43030000 		.4byte	.LASF124
  1348 08ed 01       		.byte	0x1
  1349 08ee 9B       		.byte	0x9b
  1350 08ef 2C000000 		.4byte	0x2c
@@ -1425,7 +1425,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1353 08fb 01       		.uleb128 0x1
  1354 08fc 9C       		.byte	0x9c
  1355 08fd 2C       		.uleb128 0x2c
- 1356 08fe 1A040000 		.4byte	.LASF115
+ 1356 08fe 49040000 		.4byte	.LASF115
  1357 0902 01       		.byte	0x1
  1358 0903 3E       		.byte	0x3e
  1359 0904 14070000 		.4byte	0x714
@@ -1438,7 +1438,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1366 0914 3F       		.byte	0x3f
  1367 0915 14070000 		.4byte	0x714
  1368 0919 05       		.uleb128 0x5
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 25
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 25
 
 
  1369 091a 03       		.byte	0x3
@@ -1454,12 +1454,12 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1379 0930 0902     		.2byte	0x209
  1380 0932 08040000 		.4byte	0x408
  1381 0936 1F       		.uleb128 0x1f
- 1382 0937 88040000 		.4byte	.LASF113
+ 1382 0937 B7040000 		.4byte	.LASF113
  1383 093b 01       		.byte	0x1
  1384 093c 50       		.byte	0x50
  1385 093d D0070000 		.4byte	0x7d0
  1386 0941 1F       		.uleb128 0x1f
- 1387 0942 6C030000 		.4byte	.LASF114
+ 1387 0942 9B030000 		.4byte	.LASF114
  1388 0946 01       		.byte	0x1
  1389 0947 51       		.byte	0x51
  1390 0948 D0070000 		.4byte	0x7d0
@@ -1498,7 +1498,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1423 001d 00       		.byte	0
  1424 001e 03       		.uleb128 0x3
  1425 001f 16       		.uleb128 0x16
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 26
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 26
 
 
  1426 0020 00       		.byte	0
@@ -1558,7 +1558,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1480 0056 13       		.uleb128 0x13
  1481 0057 38       		.uleb128 0x38
  1482 0058 0B       		.uleb128 0xb
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 27
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 27
 
 
  1483 0059 00       		.byte	0
@@ -1618,7 +1618,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1537 008f 00       		.byte	0
  1538 0090 00       		.byte	0
  1539 0091 0C       		.uleb128 0xc
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 28
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 28
 
 
  1540 0092 15       		.uleb128 0x15
@@ -1678,7 +1678,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1594 00c8 01       		.byte	0x1
  1595 00c9 0B       		.uleb128 0xb
  1596 00ca 0B       		.uleb128 0xb
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 29
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 29
 
 
  1597 00cb 3A       		.uleb128 0x3a
@@ -1738,7 +1738,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1651 0101 13       		.uleb128 0x13
  1652 0102 2F       		.uleb128 0x2f
  1653 0103 0B       		.uleb128 0xb
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 30
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 30
 
 
  1654 0104 00       		.byte	0
@@ -1798,7 +1798,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1708 013a 34       		.uleb128 0x34
  1709 013b 19       		.uleb128 0x19
  1710 013c 1C       		.uleb128 0x1c
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 31
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 31
 
 
  1711 013d 0E       		.uleb128 0xe
@@ -1858,7 +1858,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1765 0173 19       		.uleb128 0x19
  1766 0174 03       		.uleb128 0x3
  1767 0175 0E       		.uleb128 0xe
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 32
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 32
 
 
  1768 0176 3A       		.uleb128 0x3a
@@ -1918,7 +1918,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1822 01ad 13       		.uleb128 0x13
  1823 01ae 11       		.uleb128 0x11
  1824 01af 01       		.uleb128 0x1
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 33
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 33
 
 
  1825 01b0 12       		.uleb128 0x12
@@ -1978,7 +1978,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1879 01e7 05       		.uleb128 0x5
  1880 01e8 00       		.byte	0
  1881 01e9 00       		.byte	0
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 34
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 34
 
 
  1882 01ea 25       		.uleb128 0x25
@@ -2038,7 +2038,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1936 0220 11       		.uleb128 0x11
  1937 0221 01       		.uleb128 0x1
  1938 0222 12       		.uleb128 0x12
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 35
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 35
 
 
  1939 0223 06       		.uleb128 0x6
@@ -2098,7 +2098,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  1993 025b 3A       		.uleb128 0x3a
  1994 025c 0B       		.uleb128 0xb
  1995 025d 3B       		.uleb128 0x3b
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 36
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 36
 
 
  1996 025e 05       		.uleb128 0x5
@@ -2158,7 +2158,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  2050 003a 16000000 		.4byte	.LVL2
  2051 003e 0100     		.2byte	0x1
  2052 0040 50       		.byte	0x50
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 37
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 37
 
 
  2053 0041 16000000 		.4byte	.LVL2
@@ -2218,7 +2218,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  2107 00b9 00       		.sleb128 0
  2108 00ba 09       		.byte	0x9
  2109 00bb F8       		.byte	0xf8
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 38
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 38
 
 
  2110 00bc 1A       		.byte	0x1a
@@ -2278,7 +2278,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  2160 0000 656E646D 		.ascii	"endmem\000"
  2160      656D00
  2161              	.LASF54:
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 39
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 39
 
 
  2162 0007 72656164 		.ascii	"ready_list_t\000"
@@ -2338,7 +2338,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  2186      6973745F 
  2187              	.LASF117:
  2188 00a7 49544D5F 		.ascii	"ITM_RxBuffer\000"
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 40
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 40
 
 
  2188      52784275 
@@ -2398,7 +2398,7 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  2216 0135 705F6E65 		.ascii	"p_newer\000"
  2216      77657200 
  2217              	.LASF97:
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 41
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 41
 
 
  2218 013d 735F7175 		.ascii	"s_queue\000"
@@ -2458,391 +2458,391 @@ ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 1
  2247              	.LASF42:
  2248 01ca 705F6D73 		.ascii	"p_msgqueue\000"
  2248      67717565 
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 42
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 42
 
 
  2248      756500
- 2249              	.LASF98:
- 2250 01d5 735F636E 		.ascii	"s_cnt\000"
- 2250      7400
- 2251              	.LASF6:
- 2252 01db 73686F72 		.ascii	"short unsigned int\000"
- 2252      7420756E 
- 2252      7369676E 
- 2252      65642069 
- 2252      6E7400
- 2253              	.LASF50:
- 2254 01ee 63685F74 		.ascii	"ch_thread\000"
- 2254      68726561 
- 2254      6400
- 2255              	.LASF24:
- 2256 01f8 6D73675F 		.ascii	"msg_t\000"
- 2256      7400
- 2257              	.LASF76:
- 2258 01fe 63685F73 		.ascii	"ch_system_t\000"
- 2258      79737465 
- 2258      6D5F7400 
- 2259              	.LASF19:
- 2260 020a 746D6F64 		.ascii	"tmode_t\000"
- 2260      655F7400 
- 2261              	.LASF55:
- 2262 0212 63685F72 		.ascii	"ch_ready_list\000"
- 2262      65616479 
- 2262      5F6C6973 
- 2262      7400
- 2263              	.LASF25:
- 2264 0220 6576656E 		.ascii	"eventmask_t\000"
- 2264      746D6173 
- 2264      6B5F7400 
- 2265              	.LASF7:
- 2266 022c 5F5F696E 		.ascii	"__int32_t\000"
- 2266      7433325F 
- 2266      7400
- 2267              	.LASF84:
- 2268 0236 73746B61 		.ascii	"stkalign_t\000"
- 2268      6C69676E 
- 2268      5F7400
- 2269              	.LASF49:
- 2270 0241 74687265 		.ascii	"threads_list_t\000"
- 2270      6164735F 
- 2270      6C697374 
+ 2249              	.LASF120:
+ 2250 01d5 2F557365 		.ascii	"/Users/moslin/Documents/Project/torque_control\000"
+ 2250      72732F6D 
+ 2250      6F736C69 
+ 2250      6E2F446F 
+ 2250      63756D65 
+ 2251              	.LASF98:
+ 2252 0204 735F636E 		.ascii	"s_cnt\000"
+ 2252      7400
+ 2253              	.LASF6:
+ 2254 020a 73686F72 		.ascii	"short unsigned int\000"
+ 2254      7420756E 
+ 2254      7369676E 
+ 2254      65642069 
+ 2254      6E7400
+ 2255              	.LASF50:
+ 2256 021d 63685F74 		.ascii	"ch_thread\000"
+ 2256      68726561 
+ 2256      6400
+ 2257              	.LASF24:
+ 2258 0227 6D73675F 		.ascii	"msg_t\000"
+ 2258      7400
+ 2259              	.LASF76:
+ 2260 022d 63685F73 		.ascii	"ch_system_t\000"
+ 2260      79737465 
+ 2260      6D5F7400 
+ 2261              	.LASF19:
+ 2262 0239 746D6F64 		.ascii	"tmode_t\000"
+ 2262      655F7400 
+ 2263              	.LASF55:
+ 2264 0241 63685F72 		.ascii	"ch_ready_list\000"
+ 2264      65616479 
+ 2264      5F6C6973 
+ 2264      7400
+ 2265              	.LASF25:
+ 2266 024f 6576656E 		.ascii	"eventmask_t\000"
+ 2266      746D6173 
+ 2266      6B5F7400 
+ 2267              	.LASF7:
+ 2268 025b 5F5F696E 		.ascii	"__int32_t\000"
+ 2268      7433325F 
+ 2268      7400
+ 2269              	.LASF84:
+ 2270 0265 73746B61 		.ascii	"stkalign_t\000"
+ 2270      6C69676E 
  2270      5F7400
- 2271              	.LASF41:
- 2272 0250 705F7761 		.ascii	"p_waiting\000"
- 2272      6974696E 
- 2272      6700
- 2273              	.LASF82:
- 2274 025a 73697A65 		.ascii	"sizetype\000"
- 2274      74797065 
- 2274      00
- 2275              	.LASF48:
- 2276 0263 74687265 		.ascii	"thread_reference_t\000"
- 2276      61645F72 
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 43
+ 2271              	.LASF49:
+ 2272 0270 74687265 		.ascii	"threads_list_t\000"
+ 2272      6164735F 
+ 2272      6C697374 
+ 2272      5F7400
+ 2273              	.LASF41:
+ 2274 027f 705F7761 		.ascii	"p_waiting\000"
+ 2274      6974696E 
+ 2274      6700
+ 2275              	.LASF82:
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 43
 
 
- 2276      65666572 
- 2276      656E6365 
- 2276      5F7400
- 2277              	.LASF71:
- 2278 0276 63685F76 		.ascii	"ch_virtual_timers_list\000"
- 2278      69727475 
- 2278      616C5F74 
- 2278      696D6572 
- 2278      735F6C69 
- 2279              	.LASF119:
- 2280 028d 43686962 		.ascii	"ChibiOS_3.0.2/os/rt/src/chmemcore.c\000"
- 2280      694F535F 
- 2280      332E302E 
- 2280      322F6F73 
- 2280      2F72742F 
- 2281              	.LASF34:
- 2282 02b1 705F6F6C 		.ascii	"p_older\000"
- 2282      64657200 
- 2283              	.LASF58:
- 2284 02b9 725F6374 		.ascii	"r_ctx\000"
- 2284      7800
- 2285              	.LASF88:
- 2286 02bf 746D5F63 		.ascii	"tm_calibration_t\000"
- 2286      616C6962 
- 2286      72617469 
- 2286      6F6E5F74 
- 2286      00
- 2287              	.LASF61:
- 2288 02d0 725F6375 		.ascii	"r_current\000"
- 2288      7272656E 
- 2288      7400
- 2289              	.LASF60:
- 2290 02da 725F6F6C 		.ascii	"r_older\000"
- 2290      64657200 
- 2291              	.LASF12:
- 2292 02e2 5F5F7569 		.ascii	"__uint64_t\000"
- 2292      6E743634 
- 2292      5F7400
- 2293              	.LASF21:
- 2294 02ed 74726566 		.ascii	"trefs_t\000"
- 2294      735F7400 
- 2295              	.LASF63:
- 2296 02f5 76697274 		.ascii	"virtual_timer_t\000"
- 2296      75616C5F 
- 2296      74696D65 
- 2296      725F7400 
- 2297              	.LASF30:
- 2298 0305 705F7072 		.ascii	"p_prev\000"
- 2298      657600
- 2299              	.LASF23:
- 2300 030c 74707269 		.ascii	"tprio_t\000"
- 2300      6F5F7400 
- 2301              	.LASF124:
- 2302 0314 6368436F 		.ascii	"chCoreGetStatusX\000"
- 2302      72654765 
- 2302      74537461 
- 2302      74757358 
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 44
+ 2276 0289 73697A65 		.ascii	"sizetype\000"
+ 2276      74797065 
+ 2276      00
+ 2277              	.LASF48:
+ 2278 0292 74687265 		.ascii	"thread_reference_t\000"
+ 2278      61645F72 
+ 2278      65666572 
+ 2278      656E6365 
+ 2278      5F7400
+ 2279              	.LASF71:
+ 2280 02a5 63685F76 		.ascii	"ch_virtual_timers_list\000"
+ 2280      69727475 
+ 2280      616C5F74 
+ 2280      696D6572 
+ 2280      735F6C69 
+ 2281              	.LASF119:
+ 2282 02bc 43686962 		.ascii	"ChibiOS_3.0.2/os/rt/src/chmemcore.c\000"
+ 2282      694F535F 
+ 2282      332E302E 
+ 2282      322F6F73 
+ 2282      2F72742F 
+ 2283              	.LASF34:
+ 2284 02e0 705F6F6C 		.ascii	"p_older\000"
+ 2284      64657200 
+ 2285              	.LASF58:
+ 2286 02e8 725F6374 		.ascii	"r_ctx\000"
+ 2286      7800
+ 2287              	.LASF88:
+ 2288 02ee 746D5F63 		.ascii	"tm_calibration_t\000"
+ 2288      616C6962 
+ 2288      72617469 
+ 2288      6F6E5F74 
+ 2288      00
+ 2289              	.LASF61:
+ 2290 02ff 725F6375 		.ascii	"r_current\000"
+ 2290      7272656E 
+ 2290      7400
+ 2291              	.LASF60:
+ 2292 0309 725F6F6C 		.ascii	"r_older\000"
+ 2292      64657200 
+ 2293              	.LASF12:
+ 2294 0311 5F5F7569 		.ascii	"__uint64_t\000"
+ 2294      6E743634 
+ 2294      5F7400
+ 2295              	.LASF21:
+ 2296 031c 74726566 		.ascii	"trefs_t\000"
+ 2296      735F7400 
+ 2297              	.LASF63:
+ 2298 0324 76697274 		.ascii	"virtual_timer_t\000"
+ 2298      75616C5F 
+ 2298      74696D65 
+ 2298      725F7400 
+ 2299              	.LASF30:
+ 2300 0334 705F7072 		.ascii	"p_prev\000"
+ 2300      657600
+ 2301              	.LASF23:
+ 2302 033b 74707269 		.ascii	"tprio_t\000"
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 44
 
 
- 2302      00
- 2303              	.LASF15:
- 2304 0325 696E7433 		.ascii	"int32_t\000"
- 2304      325F7400 
- 2305              	.LASF4:
- 2306 032d 756E7369 		.ascii	"unsigned char\000"
- 2306      676E6564 
- 2306      20636861 
- 2306      7200
- 2307              	.LASF122:
- 2308 033b 5F636F72 		.ascii	"_core_init\000"
- 2308      655F696E 
- 2308      697400
- 2309              	.LASF45:
- 2310 0346 705F6D74 		.ascii	"p_mtxlist\000"
- 2310      786C6973 
- 2310      7400
- 2311              	.LASF5:
- 2312 0350 73686F72 		.ascii	"short int\000"
- 2312      7420696E 
+ 2302      6F5F7400 
+ 2303              	.LASF124:
+ 2304 0343 6368436F 		.ascii	"chCoreGetStatusX\000"
+ 2304      72654765 
+ 2304      74537461 
+ 2304      74757358 
+ 2304      00
+ 2305              	.LASF15:
+ 2306 0354 696E7433 		.ascii	"int32_t\000"
+ 2306      325F7400 
+ 2307              	.LASF4:
+ 2308 035c 756E7369 		.ascii	"unsigned char\000"
+ 2308      676E6564 
+ 2308      20636861 
+ 2308      7200
+ 2309              	.LASF122:
+ 2310 036a 5F636F72 		.ascii	"_core_init\000"
+ 2310      655F696E 
+ 2310      697400
+ 2311              	.LASF45:
+ 2312 0375 705F6D74 		.ascii	"p_mtxlist\000"
+ 2312      786C6973 
  2312      7400
- 2313              	.LASF36:
- 2314 035a 705F7374 		.ascii	"p_state\000"
- 2314      61746500 
- 2315              	.LASF39:
- 2316 0362 705F7072 		.ascii	"p_preempt\000"
- 2316      65656D70 
- 2316      7400
- 2317              	.LASF114:
- 2318 036c 5F5F6865 		.ascii	"__heap_end__\000"
- 2318      61705F65 
- 2318      6E645F5F 
- 2318      00
- 2319              	.LASF57:
- 2320 0379 725F7072 		.ascii	"r_prio\000"
- 2320      696F00
- 2321              	.LASF95:
- 2322 0380 65776D61 		.ascii	"ewmask\000"
- 2322      736B00
- 2323              	.LASF29:
- 2324 0387 705F6E65 		.ascii	"p_next\000"
- 2324      787400
- 2325              	.LASF37:
- 2326 038e 705F666C 		.ascii	"p_flags\000"
- 2326      61677300 
- 2327              	.LASF111:
- 2328 0396 5F5F6675 		.ascii	"__func__\000"
- 2328      6E635F5F 
- 2328      00
- 2329              	.LASF112:
- 2330 039f 63685379 		.ascii	"chSysLock\000"
- 2330      734C6F63 
- 2330      6B00
- 2331              	.LASF64:
- 2332 03a9 63685F76 		.ascii	"ch_virtual_timer\000"
- 2332      69727475 
- 2332      616C5F74 
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 45
+ 2313              	.LASF5:
+ 2314 037f 73686F72 		.ascii	"short int\000"
+ 2314      7420696E 
+ 2314      7400
+ 2315              	.LASF36:
+ 2316 0389 705F7374 		.ascii	"p_state\000"
+ 2316      61746500 
+ 2317              	.LASF39:
+ 2318 0391 705F7072 		.ascii	"p_preempt\000"
+ 2318      65656D70 
+ 2318      7400
+ 2319              	.LASF114:
+ 2320 039b 5F5F6865 		.ascii	"__heap_end__\000"
+ 2320      61705F65 
+ 2320      6E645F5F 
+ 2320      00
+ 2321              	.LASF57:
+ 2322 03a8 725F7072 		.ascii	"r_prio\000"
+ 2322      696F00
+ 2323              	.LASF95:
+ 2324 03af 65776D61 		.ascii	"ewmask\000"
+ 2324      736B00
+ 2325              	.LASF29:
+ 2326 03b6 705F6E65 		.ascii	"p_next\000"
+ 2326      787400
+ 2327              	.LASF37:
+ 2328 03bd 705F666C 		.ascii	"p_flags\000"
+ 2328      61677300 
+ 2329              	.LASF111:
+ 2330 03c5 5F5F6675 		.ascii	"__func__\000"
+ 2330      6E635F5F 
+ 2330      00
+ 2331              	.LASF112:
+ 2332 03ce 63685379 		.ascii	"chSysLock\000"
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 45
 
 
- 2332      696D6572 
- 2332      00
- 2333              	.LASF96:
- 2334 03ba 63685F73 		.ascii	"ch_semaphore\000"
- 2334      656D6170 
- 2334      686F7265 
+ 2332      734C6F63 
+ 2332      6B00
+ 2333              	.LASF64:
+ 2334 03d8 63685F76 		.ascii	"ch_virtual_timer\000"
+ 2334      69727475 
+ 2334      616C5F74 
+ 2334      696D6572 
  2334      00
- 2335              	.LASF44:
- 2336 03c7 705F6570 		.ascii	"p_epending\000"
- 2336      656E6469 
- 2336      6E6700
- 2337              	.LASF16:
- 2338 03d2 75696E74 		.ascii	"uint32_t\000"
- 2338      33325F74 
- 2338      00
- 2339              	.LASF94:
- 2340 03db 77746D74 		.ascii	"wtmtxp\000"
- 2340      787000
- 2341              	.LASF56:
- 2342 03e2 725F7175 		.ascii	"r_queue\000"
- 2342      65756500 
- 2343              	.LASF51:
- 2344 03ea 63685F74 		.ascii	"ch_threads_list\000"
- 2344      68726561 
- 2344      64735F6C 
- 2344      69737400 
- 2345              	.LASF10:
- 2346 03fa 6C6F6E67 		.ascii	"long unsigned int\000"
- 2346      20756E73 
- 2346      69676E65 
- 2346      6420696E 
- 2346      7400
- 2347              	.LASF103:
- 2348 040c 63686172 		.ascii	"char\000"
- 2348      00
- 2349              	.LASF28:
- 2350 0411 74687265 		.ascii	"thread_t\000"
- 2350      61645F74 
+ 2335              	.LASF96:
+ 2336 03e9 63685F73 		.ascii	"ch_semaphore\000"
+ 2336      656D6170 
+ 2336      686F7265 
+ 2336      00
+ 2337              	.LASF44:
+ 2338 03f6 705F6570 		.ascii	"p_epending\000"
+ 2338      656E6469 
+ 2338      6E6700
+ 2339              	.LASF16:
+ 2340 0401 75696E74 		.ascii	"uint32_t\000"
+ 2340      33325F74 
+ 2340      00
+ 2341              	.LASF94:
+ 2342 040a 77746D74 		.ascii	"wtmtxp\000"
+ 2342      787000
+ 2343              	.LASF56:
+ 2344 0411 725F7175 		.ascii	"r_queue\000"
+ 2344      65756500 
+ 2345              	.LASF51:
+ 2346 0419 63685F74 		.ascii	"ch_threads_list\000"
+ 2346      68726561 
+ 2346      64735F6C 
+ 2346      69737400 
+ 2347              	.LASF10:
+ 2348 0429 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2348      20756E73 
+ 2348      69676E65 
+ 2348      6420696E 
+ 2348      7400
+ 2349              	.LASF103:
+ 2350 043b 63686172 		.ascii	"char\000"
  2350      00
- 2351              	.LASF115:
- 2352 041a 6E657874 		.ascii	"nextmem\000"
- 2352      6D656D00 
- 2353              	.LASF102:
- 2354 0422 6D5F6E65 		.ascii	"m_next\000"
- 2354      787400
- 2355              	.LASF27:
- 2356 0429 73797374 		.ascii	"systime_t\000"
- 2356      696D655F 
- 2356      7400
- 2357              	.LASF46:
- 2358 0433 705F7265 		.ascii	"p_realprio\000"
- 2358      616C7072 
- 2358      696F00
- 2359              	.LASF62:
- 2360 043e 76746675 		.ascii	"vtfunc_t\000"
- 2360      6E635F74 
- 2360      00
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 46
+ 2351              	.LASF28:
+ 2352 0440 74687265 		.ascii	"thread_t\000"
+ 2352      61645F74 
+ 2352      00
+ 2353              	.LASF115:
+ 2354 0449 6E657874 		.ascii	"nextmem\000"
+ 2354      6D656D00 
+ 2355              	.LASF102:
+ 2356 0451 6D5F6E65 		.ascii	"m_next\000"
+ 2356      787400
+ 2357              	.LASF27:
+ 2358 0458 73797374 		.ascii	"systime_t\000"
+ 2358      696D655F 
+ 2358      7400
+ 2359              	.LASF46:
+ 2360 0462 705F7265 		.ascii	"p_realprio\000"
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 46
 
 
- 2361              	.LASF9:
- 2362 0447 5F5F7569 		.ascii	"__uint32_t\000"
- 2362      6E743332 
- 2362      5F7400
- 2363              	.LASF107:
- 2364 0452 5F5F7365 		.ascii	"__set_BASEPRI\000"
- 2364      745F4241 
- 2364      53455052 
- 2364      4900
- 2365              	.LASF75:
- 2366 0460 70616E69 		.ascii	"panic_msg\000"
- 2366      635F6D73 
- 2366      6700
- 2367              	.LASF87:
- 2368 046a 6F666673 		.ascii	"offset\000"
- 2368      657400
- 2369              	.LASF85:
- 2370 0471 636F6E74 		.ascii	"context\000"
- 2370      65787400 
- 2371              	.LASF18:
- 2372 0479 7274636E 		.ascii	"rtcnt_t\000"
- 2372      745F7400 
- 2373              	.LASF69:
- 2374 0481 76745F70 		.ascii	"vt_par\000"
- 2374      617200
- 2375              	.LASF113:
- 2376 0488 5F5F6865 		.ascii	"__heap_base__\000"
- 2376      61705F62 
- 2376      6173655F 
- 2376      5F00
- 2377              	.LASF52:
- 2378 0496 74687265 		.ascii	"threads_queue_t\000"
- 2378      6164735F 
- 2378      71756575 
- 2378      655F7400 
- 2379              	.LASF99:
- 2380 04a6 63685F6D 		.ascii	"ch_mutex\000"
- 2380      75746578 
- 2380      00
- 2381              	.LASF38:
- 2382 04af 705F7265 		.ascii	"p_refs\000"
- 2382      667300
- 2383              	.LASF118:
- 2384 04b6 474E5520 		.ascii	"GNU C99 5.4.1 20160919 (release) [ARM/embedded-5-br"
- 2384      43393920 
- 2384      352E342E 
- 2384      31203230 
- 2384      31363039 
- 2385 04e9 616E6368 		.ascii	"anch revision 240496] -mcpu=cortex-m4 -mfloat-abi=h"
- 2385      20726576 
- 2385      6973696F 
- 2385      6E203234 
- 2385      30343936 
- 2386 051c 61726420 		.ascii	"ard -mfpu=fpv4-sp-d16 -mno-thumb-interwork -mthumb "
- 2386      2D6D6670 
- 2386      753D6670 
- 2386      76342D73 
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 47
+ 2360      616C7072 
+ 2360      696F00
+ 2361              	.LASF62:
+ 2362 046d 76746675 		.ascii	"vtfunc_t\000"
+ 2362      6E635F74 
+ 2362      00
+ 2363              	.LASF9:
+ 2364 0476 5F5F7569 		.ascii	"__uint32_t\000"
+ 2364      6E743332 
+ 2364      5F7400
+ 2365              	.LASF107:
+ 2366 0481 5F5F7365 		.ascii	"__set_BASEPRI\000"
+ 2366      745F4241 
+ 2366      53455052 
+ 2366      4900
+ 2367              	.LASF75:
+ 2368 048f 70616E69 		.ascii	"panic_msg\000"
+ 2368      635F6D73 
+ 2368      6700
+ 2369              	.LASF87:
+ 2370 0499 6F666673 		.ascii	"offset\000"
+ 2370      657400
+ 2371              	.LASF85:
+ 2372 04a0 636F6E74 		.ascii	"context\000"
+ 2372      65787400 
+ 2373              	.LASF18:
+ 2374 04a8 7274636E 		.ascii	"rtcnt_t\000"
+ 2374      745F7400 
+ 2375              	.LASF69:
+ 2376 04b0 76745F70 		.ascii	"vt_par\000"
+ 2376      617200
+ 2377              	.LASF113:
+ 2378 04b7 5F5F6865 		.ascii	"__heap_base__\000"
+ 2378      61705F62 
+ 2378      6173655F 
+ 2378      5F00
+ 2379              	.LASF52:
+ 2380 04c5 74687265 		.ascii	"threads_queue_t\000"
+ 2380      6164735F 
+ 2380      71756575 
+ 2380      655F7400 
+ 2381              	.LASF99:
+ 2382 04d5 63685F6D 		.ascii	"ch_mutex\000"
+ 2382      75746578 
+ 2382      00
+ 2383              	.LASF38:
+ 2384 04de 705F7265 		.ascii	"p_refs\000"
+ 2384      667300
+ 2385              	.LASF118:
+ 2386 04e5 474E5520 		.ascii	"GNU C99 5.4.1 20160919 (release) [ARM/embedded-5-br"
+ 2386      43393920 
+ 2386      352E342E 
+ 2386      31203230 
+ 2386      31363039 
+ 2387 0518 616E6368 		.ascii	"anch revision 240496] -mcpu=cortex-m4 -mfloat-abi=h"
+ 2387      20726576 
+ 2387      6973696F 
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 47
 
 
- 2386      702D6431 
- 2387 054f 2D676764 		.ascii	"-ggdb -O2 -std=gnu99 -fomit-frame-pointer -falign-f"
- 2387      62202D4F 
- 2387      32202D73 
- 2387      74643D67 
- 2387      6E753939 
- 2388 0582 756E6374 		.ascii	"unctions=16 -ffunction-sections -fdata-sections -fn"
- 2388      696F6E73 
- 2388      3D313620 
- 2388      2D666675 
- 2388      6E637469 
- 2389 05b5 6F2D636F 		.ascii	"o-common -fsingle-precision-constant\000"
- 2389      6D6D6F6E 
- 2389      202D6673 
- 2389      696E676C 
- 2389      652D7072 
- 2390              	.LASF78:
- 2391 05da 726C6973 		.ascii	"rlist\000"
- 2391      7400
- 2392              	.LASF14:
- 2393 05e0 75696E74 		.ascii	"uint8_t\000"
- 2393      385F7400 
- 2394              	.LASF120:
- 2395 05e8 2F557365 		.ascii	"/Users/moslin/Documents/Project/bldc-master\000"
- 2395      72732F6D 
- 2395      6F736C69 
- 2395      6E2F446F 
- 2395      63756D65 
+ 2387      6E203234 
+ 2387      30343936 
+ 2388 054b 61726420 		.ascii	"ard -mfpu=fpv4-sp-d16 -mno-thumb-interwork -mthumb "
+ 2388      2D6D6670 
+ 2388      753D6670 
+ 2388      76342D73 
+ 2388      702D6431 
+ 2389 057e 2D676764 		.ascii	"-ggdb -O2 -std=gnu99 -fomit-frame-pointer -falign-f"
+ 2389      62202D4F 
+ 2389      32202D73 
+ 2389      74643D67 
+ 2389      6E753939 
+ 2390 05b1 756E6374 		.ascii	"unctions=16 -ffunction-sections -fdata-sections -fn"
+ 2390      696F6E73 
+ 2390      3D313620 
+ 2390      2D666675 
+ 2390      6E637469 
+ 2391 05e4 6F2D636F 		.ascii	"o-common -fsingle-precision-constant\000"
+ 2391      6D6D6F6E 
+ 2391      202D6673 
+ 2391      696E676C 
+ 2391      652D7072 
+ 2392              	.LASF78:
+ 2393 0609 726C6973 		.ascii	"rlist\000"
+ 2393      7400
+ 2394              	.LASF14:
+ 2395 060f 75696E74 		.ascii	"uint8_t\000"
+ 2395      385F7400 
  2396              	.LASF91:
- 2397 0614 77746F62 		.ascii	"wtobjp\000"
+ 2397 0617 77746F62 		.ascii	"wtobjp\000"
  2397      6A7000
  2398              	.LASF35:
- 2399 061b 705F6E61 		.ascii	"p_name\000"
+ 2399 061e 705F6E61 		.ascii	"p_name\000"
  2399      6D6500
  2400              	.LASF110:
- 2401 0622 73697A65 		.ascii	"size\000"
+ 2401 0625 73697A65 		.ascii	"size\000"
  2401      00
  2402              	.LASF72:
- 2403 0627 76745F73 		.ascii	"vt_systime\000"
+ 2403 062a 76745F73 		.ascii	"vt_systime\000"
  2403      79737469 
  2403      6D6500
  2404              	.LASF108:
- 2405 0632 63685379 		.ascii	"chSysUnlock\000"
+ 2405 0635 63685379 		.ascii	"chSysUnlock\000"
  2405      73556E6C 
  2405      6F636B00 
  2406              	.LASF43:
- 2407 063e 705F6D73 		.ascii	"p_msg\000"
+ 2407 0641 705F6D73 		.ascii	"p_msg\000"
  2407      6700
  2408              	.LASF101:
- 2409 0644 6D5F6F77 		.ascii	"m_owner\000"
+ 2409 0647 6D5F6F77 		.ascii	"m_owner\000"
  2409      6E657200 
  2410              	.LASF32:
- 2411 064c 705F6374 		.ascii	"p_ctx\000"
+ 2411 064f 705F6374 		.ascii	"p_ctx\000"
  2411      7800
  2412              	.LASF68:
- 2413 0652 76745F66 		.ascii	"vt_func\000"
+ 2413 0655 76745F66 		.ascii	"vt_func\000"
  2413      756E6300 
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 48
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 48
 
 
  2414              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160919 (release) [ARM/embedded-5-bran
-ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s 			page 49
+ARM GAS  /var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s 			page 49
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 chmemcore.c
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:22     .text._core_init:0000000000000000 $t
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:28     .text._core_init:0000000000000000 _core_init
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:56     .text._core_init:0000000000000018 $d
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:64     .text.chCoreAlloc:0000000000000000 $t
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:70     .text.chCoreAlloc:0000000000000000 chCoreAlloc
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:154    .text.chCoreAlloc:0000000000000030 $d
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:160    .text.chCoreAllocI:0000000000000000 $t
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:166    .text.chCoreAllocI:0000000000000000 chCoreAllocI
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:209    .text.chCoreAllocI:0000000000000024 $d
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:215    .text.chCoreGetStatusX:0000000000000000 $t
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:221    .text.chCoreGetStatusX:0000000000000000 chCoreGetStatusX
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:239    .text.chCoreGetStatusX:000000000000000c $d
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:245    .bss.endmem:0000000000000000 $d
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:249    .bss.endmem:0000000000000000 endmem
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:252    .bss.nextmem:0000000000000000 $d
-/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccp7tSrM.s:256    .bss.nextmem:0000000000000000 nextmem
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:22     .text._core_init:0000000000000000 $t
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:28     .text._core_init:0000000000000000 _core_init
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:56     .text._core_init:0000000000000018 $d
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:64     .text.chCoreAlloc:0000000000000000 $t
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:70     .text.chCoreAlloc:0000000000000000 chCoreAlloc
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:154    .text.chCoreAlloc:0000000000000030 $d
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:160    .text.chCoreAllocI:0000000000000000 $t
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:166    .text.chCoreAllocI:0000000000000000 chCoreAllocI
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:209    .text.chCoreAllocI:0000000000000024 $d
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:215    .text.chCoreGetStatusX:0000000000000000 $t
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:221    .text.chCoreGetStatusX:0000000000000000 chCoreGetStatusX
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:239    .text.chCoreGetStatusX:000000000000000c $d
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:245    .bss.endmem:0000000000000000 $d
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:249    .bss.endmem:0000000000000000 endmem
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:252    .bss.nextmem:0000000000000000 $d
+/var/folders/sv/kgmgr77579zbf78p2zlhkdfr0000gn/T//ccnm5XsL.s:256    .bss.nextmem:0000000000000000 nextmem
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

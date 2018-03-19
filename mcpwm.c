@@ -1234,13 +1234,26 @@ static void run_pid_control_pos(float dt) {
 	// Compute error
 	float error = utils_angle_difference(encoder_read_deg(), pos_pid_set_pos);
 
-	// Compute parameters
+	// Compute terms
 	p_term = error * conf->p_pid_kp;
 	i_term += error * (conf->p_pid_ki * dt);
-	d_term = (error - prev_error) * (conf->p_pid_kd / dt);
+
+	// Average DT for the D term when the error does not change. This likely
+	// happens at low speed when the position resolution is low and several
+	// control iterations run without position updates.
+	// TODO: Are there problems with this approach?
+	static float dt_int = 0.0;
+	dt_int += dt;
+	if (error == prev_error) {
+		d_term = 0.0;
+	} else {
+		d_term = (error - prev_error) * (conf->p_pid_kd / dt_int);
+		dt_int = 0.0;
+	}
 
 	// I-term wind-up protection
-	utils_truncate_number(&i_term, -1.0, 1.0);
+	utils_truncate_number_abs(&p_term, 1.0);
+	utils_truncate_number_abs(&i_term, 1.0 - fabsf(p_term));
 
 	// Store previous error
 	prev_error = error;

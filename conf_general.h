@@ -86,7 +86,7 @@
 /*
  * Set APP_CUSTOM_TO_USE to the name of the main C file of the custom application.
  */
-#define APP_CUSTOM_TO_USE			"app_test.c"
+#define APP_CUSTOM_TO_USE			"app_cog.c"
 
 /*
  * Enable CAN-bus
@@ -171,5 +171,6 @@ bool conf_general_detect_motor_param(float current, float min_rpm, float low_dut
 		float *int_limit, float *bemf_coupling_k, int8_t *hall_table, int *hall_res);
 bool conf_general_measure_flux_linkage(float current, float duty,
 		float min_erpm, float res, float *linkage);
+bool conf_general_anticogging(float current, float min_rpm, float low_duty, int num_steps);
 
 #endif /* CONF_GENERAL_H_ */
