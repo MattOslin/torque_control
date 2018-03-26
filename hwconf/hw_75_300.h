@@ -1,12 +1,14 @@
 /*
-	Copyright 2012-2016 Benjamin Vedder	benjamin@vedder.se
+	Copyright 2018 Benjamin Vedder	benjamin@vedder.se
 
-	This program is free software: you can redistribute it and/or modify
+	This file is part of the VESC firmware.
+
+	The VESC firmware is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
+    The VESC firmware is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -15,48 +17,30 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     */
 
-#ifndef HW_DAS_RS_H_
-#define HW_DAS_RS_H_
+#ifndef HW_75_300_H_
+#define HW_75_300_H_
 
-#define HW_NAME					"DAS_RS"
+#define HW_NAME					"75_300"
 
 // HW properties
-#define HW_HAS_DRV8313
 #define HW_HAS_3_SHUNTS
 #define HW_HAS_PHASE_SHUNTS
+#define HW_HAS_PHASE_FILTERS
 
 // Macros
-#define ENABLE_GATE()			palSetPad(GPIOB, 5)
-#define DISABLE_GATE()			palClearPad(GPIOB, 5)
+#define ENABLE_GATE()
+#define DISABLE_GATE()
 #define DCCAL_ON()
 #define DCCAL_OFF()
-#define IS_DRV_FAULT()			(!palReadPad(GPIOB, 7))
+#define IS_DRV_FAULT()			0
 
 #define LED_GREEN_ON()			palSetPad(GPIOB, 0)
 #define LED_GREEN_OFF()			palClearPad(GPIOB, 0)
 #define LED_RED_ON()			palSetPad(GPIOB, 1)
 #define LED_RED_OFF()			palClearPad(GPIOB, 1)
 
-// For power stages with enable pins (e.g. DRV8313)
-#define ENABLE_BR1()			palSetPad(GPIOB, 13)
-#define ENABLE_BR2()			palSetPad(GPIOB, 14)
-#define ENABLE_BR3()			palSetPad(GPIOB, 15)
-#define DISABLE_BR1()			palClearPad(GPIOB, 13)
-#define DISABLE_BR2()			palClearPad(GPIOB, 14)
-#define DISABLE_BR3()			palClearPad(GPIOB, 15)
-#define ENABLE_BR()				palWriteGroup(GPIOB, PAL_GROUP_MASK(3), 13, 7)
-#define DISABLE_BR()			palWriteGroup(GPIOB, PAL_GROUP_MASK(3), 13, 0)
-
-#define INIT_BR()				palSetPadMode(GPIOB, 13, \
-								PAL_MODE_OUTPUT_PUSHPULL | \
-								PAL_STM32_OSPEED_HIGHEST); \
-								palSetPadMode(GPIOB, 14, \
-								PAL_MODE_OUTPUT_PUSHPULL | \
-								PAL_STM32_OSPEED_HIGHEST); \
-								palSetPadMode(GPIOB, 15, \
-								PAL_MODE_OUTPUT_PUSHPULL | \
-								PAL_STM32_OSPEED_HIGHEST); \
-								DISABLE_BR();
+#define PHASE_FILTER_ON()		palSetPad(GPIOC, 11)
+#define PHASE_FILTER_OFF()		palClearPad(GPIOB, 11)
 
 /*
  * ADC Vector
@@ -91,6 +75,7 @@
 #define ADC_IND_CURR3			5
 #define ADC_IND_VIN_SENS		11
 #define ADC_IND_EXT				6
+#define ADC_IND_EXT2			7
 #define ADC_IND_TEMP_MOS		8
 #define ADC_IND_TEMP_MOTOR		9
 #define ADC_IND_VREFINT			12
@@ -102,7 +87,7 @@
 #define V_REG					3.3
 #endif
 #ifndef VIN_R1
-#define VIN_R1					39000.0
+#define VIN_R1					56000.0
 #endif
 #ifndef VIN_R2
 #define VIN_R2					2200.0
@@ -111,7 +96,7 @@
 #define CURRENT_AMP_GAIN		20.0
 #endif
 #ifndef CURRENT_SHUNT_RES
-#define CURRENT_SHUNT_RES		0.01
+#define CURRENT_SHUNT_RES		(0.0005 / 3.0)
 #endif
 
 // Input voltage
@@ -119,10 +104,10 @@
 
 // NTC Termistors
 #define NTC_RES(adc_val)		((4095.0 * 10000.0) / adc_val - 10000.0)
-#define NTC_TEMP(adc_ind)		(1.0 / ((logf(NTC_RES(ADC_Value[adc_ind]) / 10000.0) / 3434.0) + (1.0 / 298.15)) - 273.15)
+#define NTC_TEMP(adc_ind)		(1.0 / ((logf(NTC_RES(ADC_Value[adc_ind]) / 10000.0) / 3380.0) + (1.0 / 298.15)) - 273.15)
 
 #define NTC_RES_MOTOR(adc_val)	(10000.0 / ((4095.0 / (float)adc_val) - 1.0)) // Motor temp sensor on low side
-#define NTC_TEMP_MOTOR(beta)	(1.0 / ((logf(NTC_RES_MOTOR(ADC_Value[ADC_IND_TEMP_MOTOR]) / 10000.0) / beta) + (1.0 / 298.15)) - 273.15)
+#define NTC_TEMP_MOTOR(beta)	(-20)//(1.0 / ((logf(NTC_RES_MOTOR(ADC_Value[ADC_IND_TEMP_MOTOR]) / 10000.0) / beta) + (1.0 / 298.15)) - 273.15)
 
 // Voltage on ADC channel
 #define ADC_VOLTS(ch)			((float)ADC_Value[ch] / 4096.0 * V_REG)
@@ -138,9 +123,6 @@
 #ifndef CURR3_DOUBLE_SAMPLE
 #define CURR3_DOUBLE_SAMPLE		0
 #endif
-
-// Number of servo outputs
-#define HW_SERVO_NUM			2
 
 // UART Peripheral
 #define HW_UART_DEV				UARTD3
@@ -169,11 +151,11 @@
 
 // Hall/encoder pins
 #define HW_HALL_ENC_GPIO1		GPIOC
-#define HW_HALL_ENC_PIN1		7
+#define HW_HALL_ENC_PIN1		6
 #define HW_HALL_ENC_GPIO2		GPIOC
-#define HW_HALL_ENC_PIN2		8
+#define HW_HALL_ENC_PIN2		7
 #define HW_HALL_ENC_GPIO3		GPIOC
-#define HW_HALL_ENC_PIN3		6
+#define HW_HALL_ENC_PIN3		8
 #define HW_ENC_TIM				TIM3
 #define HW_ENC_TIM_AF			GPIO_AF_TIM3
 #define HW_ENC_TIM_CLK_EN()		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE)
@@ -186,14 +168,14 @@
 #define HW_ENC_TIM_ISR_VEC		TIM3_IRQHandler
 
 // NRF pins
-#define NRF_PORT_CSN			GPIOB
-#define NRF_PIN_CSN				12
-#define NRF_PORT_SCK			GPIOB
-#define NRF_PIN_SCK				4
-#define NRF_PORT_MOSI			GPIOB
-#define NRF_PIN_MOSI			3
-#define NRF_PORT_MISO			GPIOD
-#define NRF_PIN_MISO			2
+#define NRF_PORT_CSN			GPIOA
+#define NRF_PIN_CSN				4
+#define NRF_PORT_SCK			GPIOA
+#define NRF_PIN_SCK				5
+#define NRF_PORT_MOSI			GPIOA
+#define NRF_PIN_MOSI			7
+#define NRF_PORT_MISO			GPIOA
+#define NRF_PIN_MISO			6
 
 // SPI pins
 #define HW_SPI_DEV				SPID1
@@ -218,61 +200,34 @@
 #define READ_HALL2()			palReadPad(HW_HALL_ENC_GPIO2, HW_HALL_ENC_PIN2)
 #define READ_HALL3()			palReadPad(HW_HALL_ENC_GPIO3, HW_HALL_ENC_PIN3)
 
-// Default motor configuration values for this HW
+// Override dead time. See the stm32f4 reference manual for calculating this value.
+#define HW_DEAD_TIME_VALUE		110
+
+// Default setting overrides
+#ifndef MCCONF_L_MAX_VOLTAGE
+#define MCCONF_L_MAX_VOLTAGE			72.0	// Maximum input voltage
+#endif
 #ifndef MCCONF_DEFAULT_MOTOR_TYPE
-#define MCCONF_DEFAULT_MOTOR_TYPE			MOTOR_TYPE_FOC
-#endif
-
-#ifndef MCCONF_L_CURRENT_MAX
-#define MCCONF_L_CURRENT_MAX				2.0	// Current limit in Amperes (Upper)
-#endif
-#ifndef MCCONF_L_CURRENT_MIN
-#define MCCONF_L_CURRENT_MIN				-2.0	// Current limit in Amperes (Lower)
-#endif
-#ifndef MCCONF_L_IN_CURRENT_MAX
-#define MCCONF_L_IN_CURRENT_MAX				2.0	// Input current limit in Amperes (Upper)
-#endif
-#ifndef MCCONF_L_IN_CURRENT_MIN
-#define MCCONF_L_IN_CURRENT_MIN				-2.0	// Input current limit in Amperes (Lower)
-#endif
-#ifndef MCCONF_L_MAX_ABS_CURRENT
-#define MCCONF_L_MAX_ABS_CURRENT			10.0	// The maximum absolute current above which a fault is generated
-#endif
-
-#ifndef MCCONF_CC_MIN_CURRENT
-#define MCCONF_CC_MIN_CURRENT				0.01	// Minimum allowed current
-#endif
-
-// FOC settings
-#ifndef MCCONF_FOC_CURRENT_KP
-#define MCCONF_FOC_CURRENT_KP				4.8
-#endif
-#ifndef MCCONF_FOC_CURRENT_KI
-#define MCCONF_FOC_CURRENT_KI				5800.0
+#define MCCONF_DEFAULT_MOTOR_TYPE		MOTOR_TYPE_FOC
 #endif
 #ifndef MCCONF_FOC_F_SW
-#define MCCONF_FOC_F_SW						20000.0
+#define MCCONF_FOC_F_SW					30000.0
 #endif
-#ifndef MCCONF_FOC_MOTOR_L
-#define MCCONF_FOC_MOTOR_L					0.0048
+#ifndef MCCONF_L_MAX_ABS_CURRENT
+#define MCCONF_L_MAX_ABS_CURRENT		150.0	// The maximum absolute current above which a fault is generated
 #endif
-#ifndef MCCONF_FOC_MOTOR_R
-#define MCCONF_FOC_MOTOR_R					5.8
-#endif
-#ifndef MCCONF_FOC_MOTOR_FLUX_LINKAGE
-#define MCCONF_FOC_MOTOR_FLUX_LINKAGE		0.023
-#endif
-#ifndef MCCONF_FOC_OBSERVER_GAIN
-#define MCCONF_FOC_OBSERVER_GAIN			31e4
-#endif
-#ifndef MCCONF_FOC_OPENLOOP_RPM
-#define MCCONF_FOC_OPENLOOP_RPM				500.0
-#endif
-#ifndef MCCONF_FOC_SL_OPENLOOP_HYST
-#define MCCONF_FOC_SL_OPENLOOP_HYST			0.5
-#endif
-#ifndef MCCONF_FOC_SL_OPENLOOP_TIME
-#define MCCONF_FOC_SL_OPENLOOP_TIME			0.3
+#ifndef MCCONF_FOC_SAMPLE_V0_V7
+#define MCCONF_FOC_SAMPLE_V0_V7			true	// Run control loop in both v0 and v7 (requires phase shunts)
 #endif
 
-#endif /* HW_DAS_RS_H_ */
+// Setting limits
+#define HW_LIM_CURRENT			-300.0, 300.0
+#define HW_LIM_CURRENT_IN		-300.0, 300.0
+#define HW_LIM_CURRENT_ABS		0.0, 420.0
+#define HW_LIM_VIN				6.0, 72.0
+#define HW_LIM_ERPM				-200e3, 200e3
+#define HW_LIM_DUTY_MIN			0.0, 0.1
+#define HW_LIM_DUTY_MAX			0.0, 0.99
+#define HW_LIM_TEMP_FET			-40.0, 110.0
+
+#endif /* HW_75_300_H_ */

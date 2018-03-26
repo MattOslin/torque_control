@@ -51,7 +51,7 @@
 	!defined(HW_VERSION_48) && !defined(HW_VERSION_49) && !defined(HW_VERSION_410) && \
 	!defined(HW_VERSION_60) && !defined(HW_VERSION_R2) && !defined(HW_VERSION_VICTOR_R1A) && \
 	!defined(HW_VERSION_DAS_RS) && !defined(HW_VERSION_PALTA) && !defined(HW_VERSION_RH) && \
-	!defined(HW_VERSION_TP)
+	!defined(HW_VERSION_TP) && !defined(HW_VERSION_75_300)
 //#define HW_VERSION_40
 //#define HW_VERSION_45
 //#define HW_VERSION_46 // Also for 4.7
@@ -65,6 +65,7 @@
 //#define HW_VERSION_PALTA
 //#define HW_VERSION_RH
 //#define HW_VERSION_TP
+//#define HW_VERSION_75_300
 #endif
 
 /*
@@ -171,6 +172,5 @@ bool conf_general_detect_motor_param(float current, float min_rpm, float low_dut
 		float *int_limit, float *bemf_coupling_k, int8_t *hall_table, int *hall_res);
 bool conf_general_measure_flux_linkage(float current, float duty,
 		float min_erpm, float res, float *linkage);
-bool conf_general_anticogging(float current, float min_rpm, float low_duty, int num_steps);
 
 #endif /* CONF_GENERAL_H_ */

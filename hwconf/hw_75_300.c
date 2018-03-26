@@ -1,5 +1,5 @@
 /*
-	Copyright 2012-2016 Benjamin Vedder	benjamin@vedder.se
+	Copyright 2018 Benjamin Vedder	benjamin@vedder.se
 
 	This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,12 +16,13 @@
     */
 
 #include "hw.h"
-#ifdef HW_VERSION_DAS_RS
+#ifdef HW_VERSION_75_300
 
 #include "ch.h"
 #include "hal.h"
 #include "stm32f4xx_conf.h"
 #include "utils.h"
+#include "drv8301.h"
 
 // Variables
 static volatile bool i2c_running = false;
@@ -41,7 +42,6 @@ void hw_init_gpio(void) {
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 
 	// LEDs
-
 	palSetPadMode(GPIOB, 0,
 			PAL_MODE_OUTPUT_PUSHPULL |
 			PAL_STM32_OSPEED_HIGHEST);
@@ -49,14 +49,7 @@ void hw_init_gpio(void) {
 			PAL_MODE_OUTPUT_PUSHPULL |
 			PAL_STM32_OSPEED_HIGHEST);
 
-	// ENABLE_GATE
-	palSetPadMode(GPIOB, 5,
-			PAL_MODE_OUTPUT_PUSHPULL |
-			PAL_STM32_OSPEED_HIGHEST);
-
-	ENABLE_GATE();
-
-	// Motor PWM configuration. The DRV8313 has three enable pins and 3 pwm pins.
+	// GPIOA Configuration: Channel 1 to 3 as alternate function push-pull
 	palSetPadMode(GPIOA, 8, PAL_MODE_ALTERNATE(GPIO_AF_TIM1) |
 			PAL_STM32_OSPEED_HIGHEST |
 			PAL_STM32_PUDR_FLOATING);
@@ -67,7 +60,15 @@ void hw_init_gpio(void) {
 			PAL_STM32_OSPEED_HIGHEST |
 			PAL_STM32_PUDR_FLOATING);
 
-	INIT_BR();
+	palSetPadMode(GPIOB, 13, PAL_MODE_ALTERNATE(GPIO_AF_TIM1) |
+			PAL_STM32_OSPEED_HIGHEST |
+			PAL_STM32_PUDR_FLOATING);
+	palSetPadMode(GPIOB, 14, PAL_MODE_ALTERNATE(GPIO_AF_TIM1) |
+			PAL_STM32_OSPEED_HIGHEST |
+			PAL_STM32_PUDR_FLOATING);
+	palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(GPIO_AF_TIM1) |
+			PAL_STM32_OSPEED_HIGHEST |
+			PAL_STM32_PUDR_FLOATING);
 
 	// Hall sensors
 	palSetPadMode(HW_HALL_ENC_GPIO1, HW_HALL_ENC_PIN1, PAL_MODE_INPUT_PULLUP);
@@ -76,6 +77,12 @@ void hw_init_gpio(void) {
 
 	// Fault pin
 	palSetPadMode(GPIOB, 7, PAL_MODE_INPUT_PULLUP);
+
+	// Phase filters
+	palSetPadMode(GPIOC, 11,
+			PAL_MODE_OUTPUT_PUSHPULL |
+			PAL_STM32_OSPEED_HIGHEST);
+	PHASE_FILTER_OFF();
 
 	// ADC Pins
 	palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_ANALOG);

@@ -1151,16 +1151,16 @@ static void run_pid_control_speed(void) {
 	i_term += error * (conf->s_pid_ki * MCPWM_PID_TIME_K) * (1.0 / 20.0);
 	d_term = (error - prev_error) * (conf->s_pid_kd / MCPWM_PID_TIME_K) * (1.0 / 20.0);
 
+	// Filter D
+	static float d_filter = 0.0;
+	UTILS_LP_FAST(d_filter, d_term, conf->p_pid_kd_filter);
+	d_term = d_filter;
+
 	// I-term wind-up protection
 	utils_truncate_number(&i_term, -1.0, 1.0);
 
 	// Store previous error
 	prev_error = error;
-
-	// Some d_term filtering
-	static float d_filtered = 0.0;
-	UTILS_LP_FAST(d_filtered, d_term, 0.1);
-	d_term = d_filtered;
 
 	// Calculate output
 	float output = p_term + i_term + d_term;
@@ -1190,6 +1190,11 @@ static void run_pid_control_speed(void) {
 	p_term = error * conf->s_pid_kp * scale;
 	i_term += error * (conf->s_pid_ki * MCPWM_PID_TIME_K) * scale;
 	d_term = (error - prev_error) * (conf->s_pid_kd / MCPWM_PID_TIME_K) * scale;
+
+	// Filter D
+	static float d_filter = 0.0;
+	UTILS_LP_FAST(d_filter, d_term, conf->s_pid_kd_filter);
+	d_term = d_filter;
 
 	// I-term wind-up protection
 	utils_truncate_number(&i_term, -1.0, 1.0);
@@ -1234,26 +1239,18 @@ static void run_pid_control_pos(float dt) {
 	// Compute error
 	float error = utils_angle_difference(encoder_read_deg(), pos_pid_set_pos);
 
-	// Compute terms
+	// Compute parameters
 	p_term = error * conf->p_pid_kp;
 	i_term += error * (conf->p_pid_ki * dt);
+	d_term = (error - prev_error) * (conf->p_pid_kd / dt);
 
-	// Average DT for the D term when the error does not change. This likely
-	// happens at low speed when the position resolution is low and several
-	// control iterations run without position updates.
-	// TODO: Are there problems with this approach?
-	static float dt_int = 0.0;
-	dt_int += dt;
-	if (error == prev_error) {
-		d_term = 0.0;
-	} else {
-		d_term = (error - prev_error) * (conf->p_pid_kd / dt_int);
-		dt_int = 0.0;
-	}
+	// Filter D
+	static float d_filter = 0.0;
+	UTILS_LP_FAST(d_filter, d_term, conf->p_pid_kd_filter);
+	d_term = d_filter;
 
 	// I-term wind-up protection
-	utils_truncate_number_abs(&p_term, 1.0);
-	utils_truncate_number_abs(&i_term, 1.0 - fabsf(p_term));
+	utils_truncate_number(&i_term, -1.0, 1.0);
 
 	// Store previous error
 	prev_error = error;
