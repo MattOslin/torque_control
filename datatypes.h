@@ -58,6 +58,7 @@ typedef enum {
 typedef enum {
 	MOTOR_TYPE_BLDC = 0,
 	MOTOR_TYPE_DC,
+	MOTOR_TYPE_ATC,
 	MOTOR_TYPE_FOC
 } mc_motor_type;
 

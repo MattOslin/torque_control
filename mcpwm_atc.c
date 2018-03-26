@@ -14,6 +14,19 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Structs
+typedef struct {
+	volatile bool updated;
+	volatile unsigned int top;
+	volatile unsigned int duty;
+	volatile unsigned int val_sample;
+	volatile unsigned int curr1_sample;
+	volatile unsigned int curr2_sample;
+#ifdef HW_HAS_3_SHUNTS
+	volatile unsigned int curr3_sample;
+#endif
+} mc_timer_struct;
+
 // Private variables
 static volatile mc_configuration *m_conf;
 static volatile mc_state m_state;
@@ -51,7 +64,7 @@ static volatile int current_fir_index = 0;
 static void stop_pwm_hw(void);
 static void start_pwm_hw(void);
 static void do_dc_cal(void);
-static void do_pid_pos_control(void);
+static float do_pid_pos_control(void);
 
 // Threads
 static THD_WORKING_AREA(timer_thread_wa, 2048);
@@ -129,7 +142,7 @@ void mcpwm_atc_init(volatile mc_configuration *configuration){
 	m_output_on = false;
 	m_dccal_done = false;
 	last_inj_adc_isr_duration = 0;
-	switching_frequency_now = m_conf->m_bldc_f_sw_max;
+	switching_frequency_now = m_conf->foc_f_sw;
 	last_current_sample = 0;
 	last_current_sample_filtered = 0;
 	dutycycle_now = 0;
@@ -148,7 +161,8 @@ void mcpwm_atc_init(volatile mc_configuration *configuration){
 
 	// Time Base configuration
 	TIM_TimeBaseStructure.TIM_Prescaler = 0;
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;
+	//TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_CenterAligned1;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_Period = SYSTEM_CORE_CLOCK / (int)switching_frequency_now;
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
 	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
@@ -188,7 +202,7 @@ void mcpwm_atc_init(volatile mc_configuration *configuration){
 	TIM_CCPreloadControl(TIM1, ENABLE);
 	TIM_ARRPreloadConfig(TIM1, ENABLE);
 
-		/*
+	/*
 	 * ADC!
 	 */
 	ADC_CommonInitTypeDef ADC_CommonInitStructure;
@@ -431,7 +445,69 @@ void mcpwm_atc_set_pid_pos(float pos) {
  * The duty cycle to use.
  */
 void mcpwm_atc_set_duty(float dutyCycle) {
-	commands_printf("Unsupported duty mode");
+	m_control_mode = CONTROL_MODE_DUTY;	
+
+	if (m_state != MC_STATE_RUNNING) {
+		m_state = MC_STATE_RUNNING;
+	}
+
+	dutyCycle = fabsf(dutyCycle);
+
+	utils_truncate_number(&dutyCycle, m_conf->l_min_duty, m_conf->l_max_duty);
+
+	dutyCycle = 0.5;
+
+	// Adjust switching frequency for good resolution
+	switching_frequency_now = (float)m_conf->m_bldc_f_sw_min * (1.0 - dutyCycle) +
+		(float)m_conf->m_bldc_f_sw_max * dutyCycle;
+
+	switching_frequency_now = m_conf->foc_f_sw;
+
+	// Set top of counter
+	uint16_t top = SYSTEM_CORE_CLOCK / (int)switching_frequency_now;
+
+	// Set switching register for line 1
+	uint16_t duty1 = (uint16_t)((float)top * dutyCycle);
+
+	// Update
+	utils_sys_lock_cnt();
+	TIMER_UPDATE_SAMP_TOP(MCPWM_ATC_CURRENT_SAMP_OFFSET, top);
+	TIMER_UPDATE_DUTY(duty1, 0, 0);
+	utils_sys_unlock_cnt();
+	
+// 	uint16_t positive_oc_mode = TIM_OCMode_PWM1;
+// 	uint16_t negative_oc_mode = TIM_OCMode_Inactive;
+
+// 	uint16_t positive_highside = TIM_CCx_Enable;
+// 	uint16_t positive_lowside = TIM_CCxN_Enable;
+
+// 	uint16_t negative_highside = TIM_CCx_Enable;
+// 	uint16_t negative_lowside = TIM_CCxN_Enable;
+
+// #ifdef HW_HAS_DRV8313
+// 	DISABLE_BR1();
+// 	ENABLE_BR2();
+// 	ENABLE_BR3();
+// #endif
+// 	// 0
+// 	TIM_SelectOCxM(TIM1, TIM_Channel_1, TIM_OCMode_Inactive);
+// 	TIM_CCxCmd(TIM1, TIM_Channel_1, TIM_CCx_Enable);
+// 	TIM_CCxNCmd(TIM1, TIM_Channel_1, TIM_CCxN_Disable);
+
+// 	// +
+// 	TIM_SelectOCxM(TIM1, TIM_Channel_2, positive_oc_mode);
+// 	TIM_CCxCmd(TIM1, TIM_Channel_2, positive_highside);
+// 	TIM_CCxNCmd(TIM1, TIM_Channel_2, positive_lowside);
+
+// 	// -
+// 	TIM_SelectOCxM(TIM1, TIM_Channel_3, negative_oc_mode);
+// 	TIM_CCxCmd(TIM1, TIM_Channel_3, negative_highside);
+// 	TIM_CCxNCmd(TIM1, TIM_Channel_3, negative_lowside);
+
+	if(!m_output_on){
+		start_pwm_hw();
+	}
+	commands_printf("Duty set: %.2f %i %i %i",dutyCycle, duty1,top,m_init_done);
 }
 
 /**
@@ -687,7 +763,7 @@ static THD_FUNCTION(timer_thread, arg) {
 		}
 
 		// Meat and Potatoes------------------------------------------------
-		do_pid_pos_control();
+		m_pos_pid_now = do_pid_pos_control();
 		
 		// End Meat and Potatoes--------------------------------------------
 
@@ -697,8 +773,11 @@ static THD_FUNCTION(timer_thread, arg) {
 
 }
 
-static void do_pid_pos_control(void){
-	m_pos_pid_now = encoder_read_deg();
+static float do_pid_pos_control(void){
+	float pos = encoder_read_deg();
+	utils_norm_angle(&pos);
+
+	return pos;
 }
 
 static void do_dc_cal(void) {
@@ -753,6 +832,7 @@ static void stop_pwm_hw(void) {
 }
 
 static void start_pwm_hw(void) {
+	commands_printf("start");
 	TIM_SelectOCxM(TIM1, TIM_Channel_1, TIM_OCMode_PWM1);
 	TIM_CCxCmd(TIM1, TIM_Channel_1, TIM_CCx_Enable);
 	TIM_CCxNCmd(TIM1, TIM_Channel_1, TIM_CCxN_Enable);
