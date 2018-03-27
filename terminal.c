@@ -246,7 +246,7 @@ void terminal_process_string(char *str) {
 					float offset = 0.0;
 					float ratio = 0.0;
 					bool inverted = false;
-					mcpwm_foc_encoder_detect(current, true, &offset, &ratio, &inverted);
+					//mcpwm_foc_encoder_detect(current, true, &offset, &ratio, &inverted);
 
 					mcconf.motor_type = type_old;
 					mc_interface_set_configuration(&mcconf);
@@ -272,7 +272,7 @@ void terminal_process_string(char *str) {
 				mcconf.motor_type = MOTOR_TYPE_FOC;
 				mc_interface_set_configuration(&mcconf);
 
-				commands_printf("Resistance: %.6f ohm\n", (double)mcpwm_foc_measure_resistance(current, 2000));
+				//commands_printf("Resistance: %.6f ohm\n", (double)mcpwm_foc_measure_resistance(current, 2000));
 
 				mc_interface_set_configuration(&mcconf_old);
 			} else {
@@ -291,8 +291,8 @@ void terminal_process_string(char *str) {
 				mcconf.foc_f_sw = 3000.0;
 				mc_interface_set_configuration(&mcconf);
 
-				float curr;
-				float ind = mcpwm_foc_measure_inductance(duty, 200, &curr);
+				float curr = 0.0;
+				float ind = 0.0; //mcpwm_foc_measure_inductance(duty, 200, &curr);
 				commands_printf("Inductance: %.2f microhenry (%.2f A)\n", (double)ind, (double)curr);
 
 				mc_interface_set_configuration(&mcconf_old);
@@ -329,7 +329,7 @@ void terminal_process_string(char *str) {
 
 		float res = 0.0;
 		float ind = 0.0;
-		mcpwm_foc_measure_res_ind(&res, &ind);
+		//mcpwm_foc_measure_res_ind(&res, &ind);
 		commands_printf("Resistance: %.6f ohm", (double)res);
 		commands_printf("Inductance: %.2f microhenry\n", (double)ind);
 
