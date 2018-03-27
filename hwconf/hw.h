@@ -54,8 +54,6 @@
 #include "hw_rh.h"
 #elif defined HW_VERSION_TP
 #include "hw_tp.h"
-#elif defined HW_VERSION_75_300
-#include "hw_75_300.h"
 #else
 #error "No hardware version defined"
 #endif

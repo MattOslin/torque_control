@@ -12,7 +12,6 @@ HWSRC =	hwconf/hw_40.c \
 	hwconf/drv8305.c \
 	hwconf/hw_palta.c \
 	hwconf/hw_rh.c \
-	hwconf/hw_tp.c \
-	hwconf/hw_75_300.c
+	hwconf/hw_tp.c
 
 HWINC = hwconf
