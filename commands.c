@@ -718,7 +718,7 @@ void commands_process_packet(unsigned char *data, unsigned int len) {
 			float offset = 0.0;
 			float ratio = 0.0;
 			bool inverted = false;
-			//mcpwm_foc_encoder_detect(current, false, &offset, &ratio, &inverted);
+			mcpwm_foc_encoder_detect(current, false, &offset, &ratio, &inverted);
 			mc_interface_set_configuration(&mcconf_old);
 
 			ind = 0;

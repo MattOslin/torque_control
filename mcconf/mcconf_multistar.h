@@ -26,6 +26,9 @@
 #define MCCONF_L_BATTERY_CUT_START			41.0	// Start limiting the positive current at this voltage
 #define MCCONF_L_BATTERY_CUT_END			39.0		// Limit the positive current completely at this voltage
 
+// Deadtime setting
+#define HW_DEAD_TIME_VALUE					60 // clock ticks 0x00 to 0xFF
+
 // Sensorless settings
 #define MCCONF_SENSOR_MODE				SENSOR_MODE_SENSORLESS // Sensor mode
 #define MCCONF_SL_MIN_RPM					250		// Auto-commutate below this RPM

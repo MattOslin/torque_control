@@ -32,5 +32,6 @@ void encoder_reset(void);
 void encoder_tim_isr(void);
 void encoder_set_counts(uint32_t counts);
 bool encoder_index_found(void);
+uint16_t encoder_last_message(void);
 
 #endif /* ENCODER_H_ */

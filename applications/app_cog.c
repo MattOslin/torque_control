@@ -6,6 +6,7 @@
 #include "terminal.h" // For terminal commands
 #include "commands.h" // To print
 #include "utils.h" // For fun
+#include "encoder.h"
  
 // Threads
 static THD_FUNCTION(cog_thread, arg);
@@ -81,7 +82,9 @@ static THD_FUNCTION(cog_thread, arg) {
 		}
 
 		// Meat and Potatoes------------------------------------------------
-		commands_printf("Error: %.2f",(double)utils_angle_difference(mc_interface_get_pid_pos_set(), mc_interface_get_pid_pos_now()));
+		//commands_printf("Error: %.2f",(double)utils_angle_difference(mc_interface_get_pid_pos_set(), mc_interface_get_pid_pos_now()));
+		//commands_printf("Message: %x", encoder_last_message());
+		commands_printf("Pos: %.2f", (double)mc_interface_get_pid_pos_now());
 
 		// End Meat and Potatoes--------------------------------------------
 

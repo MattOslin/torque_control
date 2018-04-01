@@ -65,14 +65,6 @@ typedef struct {
 	uint32_t svm_sector;
 } motor_state_t;
 
-typedef struct {
-	int sample_num;
-	float avg_current_tot;
-	float avg_voltage_tot;
-	bool measure_inductance_now;
-	float measure_inductance_duty;
-} mc_sample_t;
-
 // Private variables
 static volatile mc_configuration *m_conf;
 static volatile mc_state m_state;
@@ -102,7 +94,6 @@ static volatile float m_observer_x1;
 static volatile float m_observer_x2;
 static volatile float m_pll_phase;
 static volatile float m_pll_speed;
-static volatile mc_sample_t m_samples;
 static volatile int m_tachometer;
 static volatile int m_tachometer_abs;
 static volatile float last_inj_adc_isr_duration;
@@ -120,6 +111,8 @@ static void do_dc_cal(void);
 static void control_current(volatile motor_state_t *state_m, float dt);
 static void run_pid_control_pos(float angle_now, float angle_set, float dt);
 static void run_pid_control_speed(float dt);
+static void svm(float alpha, float beta, uint32_t PWMHalfPeriod,
+		uint32_t* tAout, uint32_t* tBout, uint32_t* tCout, uint32_t *svm_sector);
 static void stop_pwm_hw(void);
 static void start_pwm_hw(void);
 
@@ -221,7 +214,6 @@ void mcpwm_foc_init(volatile mc_configuration *configuration) {
 	m_pos_pid_now = 0.0;
 	m_gamma_now = 0.0;
 	memset((void*)&m_motor_state, 0, sizeof(motor_state_t));
-	memset((void*)&m_samples, 0, sizeof(mc_sample_t));
 
 #ifdef HW_HAS_3_SHUNTS
 	m_curr2_sum = 0;
@@ -916,6 +908,223 @@ float mcpwm_foc_get_vq(void) {
 	return m_motor_state.vq;
 }
 
+/**
+ * Measure encoder offset and direction.
+ *
+ * @param current
+ * The locking open loop current for the motor.
+ *
+ * @param offset
+ * The detected offset.
+ *
+ * @param ratio
+ * The ratio between electrical and mechanical revolutions
+ *
+ * @param direction
+ * The detected direction.
+ */
+void mcpwm_foc_encoder_detect(float current, bool print, float *offset, float *ratio, bool *inverted) {
+	mc_interface_lock();
+
+	m_phase_override = true;
+	m_id_set = current;
+	m_iq_set = 0.0;
+	m_control_mode = CONTROL_MODE_CURRENT;
+	m_state = MC_STATE_RUNNING;
+
+	// Disable timeout
+	systime_t tout = timeout_get_timeout_msec();
+	float tout_c = timeout_get_brake_current();
+	timeout_reset();
+	timeout_configure(600000, 0.0);
+
+	// Save configuration
+	float offset_old = m_conf->foc_encoder_offset;
+	float inverted_old = m_conf->foc_encoder_inverted;
+	float ratio_old = m_conf->foc_encoder_ratio;
+
+	m_conf->foc_encoder_offset = 0.0;
+	m_conf->foc_encoder_inverted = false;
+	m_conf->foc_encoder_ratio = 1.0;
+
+	// Find index
+	int cnt = 0;
+	while(!encoder_index_found()) {
+		for (float i = 0.0;i < 2.0 * M_PI;i += (2.0 * M_PI) / 500.0) {
+			m_phase_now_override = i;
+			chThdSleepMilliseconds(1);
+		}
+
+		cnt++;
+		if (cnt > 30) {
+			// Give up
+			break;
+		}
+	}
+
+	if (print) {
+		commands_printf("Index found");
+	}
+
+	// Rotate
+	for (float i = 0.0;i < 2.0 * M_PI;i += (2.0 * M_PI) / 500.0) {
+		m_phase_now_override = i;
+		chThdSleepMilliseconds(1);
+	}
+
+	if (print) {
+		commands_printf("Rotated for sync");
+	}
+
+	// Inverted and ratio
+	chThdSleepMilliseconds(1000);
+
+	const int it_rat = 20;
+	float s_sum = 0.0;
+	float c_sum = 0.0;
+	float first = m_phase_now_encoder;
+
+	for (int i = 0; i < it_rat; i++) {
+		float phase_old = m_phase_now_encoder;
+		float phase_ovr_tmp = m_phase_now_override;
+		for (float i = phase_ovr_tmp; i < phase_ovr_tmp + (2.0 / 3.0) * M_PI;
+				i += (2.0 * M_PI) / 500.0) {
+			m_phase_now_override = i;
+			chThdSleepMilliseconds(1);
+		}
+		utils_norm_angle_rad((float*)&m_phase_now_override);
+		chThdSleepMilliseconds(300);
+		float diff = utils_angle_difference_rad(m_phase_now_encoder, phase_old);
+
+		float s, c;
+		sincosf(diff, &s, &c);
+		s_sum += s;
+		c_sum += c;
+
+		if (print) {
+			commands_printf("%.2f", (double)(diff * 180.0 / M_PI));
+		}
+
+		if (i > 3 && fabsf(utils_angle_difference_rad(m_phase_now_encoder, first)) < fabsf(diff / 2.0)) {
+			break;
+		}
+	}
+
+	first = m_phase_now_encoder;
+
+	for (int i = 0; i < it_rat; i++) {
+		float phase_old = m_phase_now_encoder;
+		float phase_ovr_tmp = m_phase_now_override;
+		for (float i = phase_ovr_tmp; i > phase_ovr_tmp - (2.0 / 3.0) * M_PI;
+				i -= (2.0 * M_PI) / 500.0) {
+			m_phase_now_override = i;
+			chThdSleepMilliseconds(1);
+		}
+		utils_norm_angle_rad((float*)&m_phase_now_override);
+		chThdSleepMilliseconds(300);
+		float diff = utils_angle_difference_rad(phase_old, m_phase_now_encoder);
+
+		float s, c;
+		sincosf(diff, &s, &c);
+		s_sum += s;
+		c_sum += c;
+
+		if (print) {
+			commands_printf("%.2f", (double)(diff * 180.0 / M_PI));
+		}
+
+		if (i > 3 && fabsf(utils_angle_difference_rad(m_phase_now_encoder, first)) < fabsf(diff / 2.0)) {
+			break;
+		}
+	}
+
+	float diff = atan2f(s_sum, c_sum) * 180.0 / M_PI;
+	*inverted = diff < 0.0;
+	*ratio = roundf(((2.0 / 3.0) * 180.0) /
+			fabsf(diff));
+
+	m_conf->foc_encoder_inverted = *inverted;
+	m_conf->foc_encoder_ratio = *ratio;
+
+	if (print) {
+		commands_printf("Inversion and ratio detected");
+	}
+
+	// Rotate
+	for (float i = m_phase_now_override;i < 2.0 * M_PI;i += (2.0 * M_PI) / 500.0) {
+		m_phase_now_override = i;
+		chThdSleepMilliseconds(2);
+	}
+
+	if (print) {
+		commands_printf("Rotated for sync");
+		commands_printf("Enc: %.2f", (double)encoder_read_deg());
+	}
+
+	const int it_ofs = m_conf->foc_encoder_ratio * 3.0;
+	s_sum = 0.0;
+	c_sum = 0.0;
+
+	for (int i = 0;i < it_ofs;i++) {
+		m_phase_now_override = ((float)i * 2.0 * M_PI * m_conf->foc_encoder_ratio) / ((float)it_ofs);
+		chThdSleepMilliseconds(500);
+
+		float diff = utils_angle_difference_rad(m_phase_now_encoder, m_phase_now_override);
+		float s, c;
+		sincosf(diff, &s, &c);
+		s_sum += s;
+		c_sum += c;
+
+		if (print) {
+			commands_printf("%.2f", (double)(diff * 180.0 / M_PI));
+		}
+	}
+
+	for (int i = it_ofs;i > 0;i--) {
+		m_phase_now_override = ((float)i * 2.0 * M_PI * m_conf->foc_encoder_ratio) / ((float)it_ofs);
+		chThdSleepMilliseconds(500);
+
+		float diff = utils_angle_difference_rad(m_phase_now_encoder, m_phase_now_override);
+		float s, c;
+		sincosf(diff, &s, &c);
+		s_sum += s;
+		c_sum += c;
+
+		if (print) {
+			commands_printf("%.2f", (double)(diff * 180.0 / M_PI));
+		}
+	}
+
+	*offset = atan2f(s_sum, c_sum) * 180.0 / M_PI;
+
+	if (print) {
+		commands_printf("Avg: %.2f", (double)*offset);
+	}
+
+	utils_norm_angle(offset);
+
+	if (print) {
+		commands_printf("Offset detected");
+	}
+
+	m_id_set = 0.0;
+	m_iq_set = 0.0;
+	m_phase_override = false;
+	m_control_mode = CONTROL_MODE_NONE;
+	m_state = MC_STATE_OFF;
+	stop_pwm_hw();
+
+	// Restore configuration
+	m_conf->foc_encoder_inverted = inverted_old;
+	m_conf->foc_encoder_offset = offset_old;
+	m_conf->foc_encoder_ratio = ratio_old;
+
+	// Enable timeout
+	timeout_configure(tout, tout_c);
+
+	mc_interface_unlock();
+}
+
 void mcpwm_foc_print_state(void) {
 	commands_printf("Mod d:        %.2f", (double)m_motor_state.mod_d);
 	commands_printf("Mod q:        %.2f", (double)m_motor_state.mod_q);
@@ -948,11 +1157,26 @@ void mcpwm_foc_tim_sample_int_handler(void) {
 	}
 }
 
+// Called after samp offset after TIM1 overflow and underflow
 void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 	(void)p;
 	(void)flags;
 
 	TIM12->CNT = 0;
+
+	// When downcounting we are in v0, when upcounting in v7
+	// In downcounting DIR = 1
+	bool is_v7 = !(TIM1->CR1 & TIM_CR1_DIR);
+
+#ifdef HW_HAS_PHASE_SHUNTS
+	if (!m_conf->foc_sample_v0_v7 && is_v7) {
+		return;
+	}
+#else
+	if (is_v7) {
+		return;
+	}
+#endif
 
 	// Reset the watchdog
 	WWDG_SetCounter(100);
@@ -978,10 +1202,10 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 	m_curr_samples++;
 
-	ADC_curr_norm_value[0] = curr0;
-	ADC_curr_norm_value[1] = curr1;
+	ADC_curr_norm_value[0] = -curr0;
+	ADC_curr_norm_value[1] = -curr1;
 #ifdef HW_HAS_3_SHUNTS
-	ADC_curr_norm_value[2] = curr2;
+	ADC_curr_norm_value[2] = -curr2;
 #else
 	ADC_curr_norm_value[2] = -(ADC_curr_norm_value[0] + ADC_curr_norm_value[1]);
 #endif
@@ -1009,6 +1233,28 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 	}
 
 	if (m_state == MC_STATE_RUNNING) {
+		// Clarke transform assuming balanced currents
+		// TODO: verify with theory
+		m_motor_state.i_alpha = ia;
+		m_motor_state.i_beta = ONE_BY_SQRT3 * ia + TWO_BY_SQRT3 * ib;
+
+		// Set max duty
+		m_motor_state.max_duty = m_conf->l_max_duty;
+
+		float duty_set = m_duty_cycle_set;
+		bool control_duty = m_control_mode == CONTROL_MODE_DUTY;
+
+		if(control_duty){
+			// TODO: ramping and other fun things
+
+			// override max duty
+			m_motor_state.max_duty = duty_set;
+		}
+
+		if (m_phase_override) {
+			m_motor_state.phase = m_phase_now_override;
+		}
+
 		control_current(&m_motor_state, dt);
 	} else {
 
@@ -1059,18 +1305,6 @@ static THD_FUNCTION(timer_thread, arg) {
 		if (timer_thd_stop) {
 			timer_thd_stop = false;
 			return;
-		}
-
-		// Samples
-		if (m_state == MC_STATE_RUNNING) {
-			const volatile float vd_tmp = m_motor_state.vd;
-			const volatile float vq_tmp = m_motor_state.vq;
-			const volatile float id_tmp = m_motor_state.id;
-			const volatile float iq_tmp = m_motor_state.iq;
-
-			m_samples.avg_current_tot += sqrtf(SQ(id_tmp) + SQ(iq_tmp));
-			m_samples.avg_voltage_tot += sqrtf(SQ(vd_tmp) + SQ(vq_tmp));
-			m_samples.sample_num++;
 		}
 
 		run_pid_control_speed(dt);
@@ -1146,23 +1380,50 @@ static void do_dc_cal(void) {
  * The time step in seconds.
  */
 static void control_current(volatile motor_state_t *state_m, float dt) {
+	float c,s;
+	utils_fast_sincos_better(state_m->phase, &s, &c);
 
-	float dutyCycle = fabsf(m_duty_cycle_set);
-	utils_truncate_number(&dutyCycle, m_conf->l_min_duty, m_conf->l_max_duty);
+	float max_duty = fabsf(state_m->max_duty);
+	utils_truncate_number(&max_duty, 0.0, m_conf->l_max_duty);
 
-	float switching_frequency_now = (float)m_conf->m_bldc_f_sw_min * (1.0 - fabsf(dutyCycle)) +
-					m_conf->m_bldc_f_sw_max * fabsf(dutyCycle);
+	// project stationary currents onto rotating dq axes, filter
+	//state_m->id = c * state_m->i_alpha + s * state_m->i_beta;
+	//state_m->iq = c * state_m->i_beta  - s * state_m->i_alpha;
+	
+	state_m->iq = state_m->i_alpha;
+
+	UTILS_LP_FAST(state_m->id_filter, state_m->id, MCPWM_FOC_I_FILTER_CONST);
+	UTILS_LP_FAST(state_m->iq_filter, state_m->iq, MCPWM_FOC_I_FILTER_CONST);
+
+	// Error Terms
+	float Ierr_d = state_m->id_target - state_m->id;
+	float Ierr_q = state_m->iq_target - state_m->iq;
+
+	// Calculate voltages to output dq axes with PI controller
+	state_m->vd = state_m->vd_int + Ierr_d * m_conf->foc_current_kp;
+	state_m->vq = state_m->vq_int + Ierr_q * m_conf->foc_current_kp;
+	state_m->vd_int += Ierr_d * (m_conf->foc_current_ki * dt);
+	state_m->vq_int += Ierr_q * (m_conf->foc_current_ki * dt);
+
+	// Saturation
+	utils_saturate_vector_2d((float*)&state_m->vd, (float*)&state_m->vq,
+			(2.0 / 3.0) * max_duty * SQRT3_BY_2 * state_m->v_bus);
+
+	// Windup protection
+//	utils_saturate_vector_2d((float*)&state_m->vd_int, (float*)&state_m->vq_int,
+//			(2.0 / 3.0) * max_duty * SQRT3_BY_2 * state_m->v_bus);
+	utils_truncate_number_abs((float*)&state_m->vd_int, (2.0 / 3.0) * max_duty * SQRT3_BY_2 * state_m->v_bus);
+	utils_truncate_number_abs((float*)&state_m->vq_int, (2.0 / 3.0) * max_duty * SQRT3_BY_2 * state_m->v_bus);
+
+	// Modulated forms of vd and vq for svm
+	state_m->mod_d = state_m->vd / ((2.0 / 3.0) * state_m->v_bus);
+	state_m->mod_q = state_m->vq / ((2.0 / 3.0) * state_m->v_bus);
 
 	// Set output (HW Dependent)
 	uint32_t duty1, duty2, duty3, top;
 
-	top = SYSTEM_CORE_CLOCK / (int)switching_frequency_now;
-	TIMER_UPDATE_SAMP_TOP(MCPWM_FOC_CURRENT_SAMP_OFFSET, top);
-
 	top = TIM1->ARR;
-	duty1 = (uint16_t)((float)top * dutyCycle);
-	duty2 = 0;
-	duty3 = 0;
+	svm(0.25, 0.0, top, &duty1, &duty2, &duty3, (uint32_t*)&state_m->svm_sector);
 	TIMER_UPDATE_DUTY(duty1, duty2, duty3);
 
 	if (!m_output_on) {
@@ -1170,15 +1431,160 @@ static void control_current(volatile motor_state_t *state_m, float dt) {
 	}
 }
 
+/**
+	Magnitude (alpha,beta) must not be larger than sqrt(3)/2, or 0.866
+	alpha, beta are the components of the desired voltage in the stator axes,
+	normalized with 2/3*vin as 1, so each vector is unit
+
+	The magnitude of the six (eight) switching vectors is at most 2/3vin each, hence the circle inscribed within
+	the vectors is of radius sqrt(3)/3vin, which corresponds to a normalized magnitude of sqrt(3)/2
+
+	alpha and beta are dimensionless, PWMHalfPeriod is in ticks
+**/
+static void svm(float alpha, float beta, uint32_t PWMHalfPeriod,
+		uint32_t* tAout, uint32_t* tBout, uint32_t* tCout, uint32_t *svm_sector) {
+	uint32_t sector;
+
+	if (beta >= 0.0f) {
+		if (alpha >= 0.0f) {
+			//quadrant I
+			if (ONE_BY_SQRT3 * beta > alpha) {
+				sector = 2;
+			} else {
+				sector = 1;
+			}
+		} else {
+			//quadrant II
+			if (-ONE_BY_SQRT3 * beta > alpha) {
+				sector = 3;
+			} else {
+				sector = 2;
+			}
+		}
+	} else {
+		if (alpha >= 0.0f) {
+			//quadrant IV
+			if (-ONE_BY_SQRT3 * beta > alpha) {
+				sector = 5;
+			} else {
+				sector = 6;
+			}
+		} else {
+			//quadrant III
+			if (ONE_BY_SQRT3 * beta > alpha) {
+				sector = 4;
+			} else {
+				sector = 5;
+			}
+		}
+	}
+
+	// PWM timings
+	uint32_t tA, tB, tC;
+
+	switch (sector) {
+
+	// sector 1-2
+	case 1: {
+		// Vector on-times
+		uint32_t t1 = (alpha - ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+		uint32_t t2 = (TWO_BY_SQRT3 * beta) * PWMHalfPeriod;
+
+		// PWM timings
+		tC = (PWMHalfPeriod - t1 - t2) / 2;
+		tB = tC + t2;
+		tA = tB + t1;
+
+		break;
+	}
+
+	// sector 2-3
+	case 2: {
+		// Vector on-times
+		uint32_t t2 = (alpha + ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+		uint32_t t3 = (-alpha + ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+
+		// PWM timings
+		tC = (PWMHalfPeriod - t2 - t3) / 2;
+		tA = tC + t2;
+		tB = tA + t3;
+
+		break;
+	}
+
+	// sector 3-4
+	case 3: {
+		// Vector on-times
+		uint32_t t3 = (TWO_BY_SQRT3 * beta) * PWMHalfPeriod;
+		uint32_t t4 = (-alpha - ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+
+		// PWM timings
+		tA = (PWMHalfPeriod - t3 - t4) / 2;
+		tC = tA + t4;
+		tB = tC + t3;
+
+		break;
+	}
+
+	// sector 4-5
+	case 4: {
+		// Vector on-times
+		uint32_t t4 = (-alpha + ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+		uint32_t t5 = (-TWO_BY_SQRT3 * beta) * PWMHalfPeriod;
+
+		// PWM timings
+		tA = (PWMHalfPeriod - t4 - t5) / 2;
+		tB = tA + t4;
+		tC = tB + t5;
+
+		break;
+	}
+
+	// sector 5-6
+	case 5: {
+		// Vector on-times
+		uint32_t t5 = (-alpha - ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+		uint32_t t6 = (alpha - ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+
+		// PWM timings
+		tB = (PWMHalfPeriod - t5 - t6) / 2;
+		tA = tB + t6;
+		tC = tA + t5;
+
+		break;
+	}
+
+	// sector 6-1
+	case 6: {
+		// Vector on-times
+		uint32_t t6 = (-TWO_BY_SQRT3 * beta) * PWMHalfPeriod;
+		uint32_t t1 = (alpha + ONE_BY_SQRT3 * beta) * PWMHalfPeriod;
+
+		// PWM timings
+		tB = (PWMHalfPeriod - t6 - t1) / 2;
+		tC = tB + t6;
+		tA = tC + t1;
+
+		break;
+	}
+	}
+
+	*tAout = tA;
+	*tBout = tB;
+	*tCout = tC;
+	*svm_sector = sector;
+}
+
 static void run_pid_control_pos(float angle_now, float angle_set, float dt) {
 	static float i_term = 0;
 	static float prev_error = 0;
+	static float d_term;
 	float p_term;
-	float d_term;
 
 	// PID is off. Return.
 	if (m_control_mode != CONTROL_MODE_POS) {
 		i_term = 0;
+		d_term = 0;
 		prev_error = 0;
 		return;
 	}
@@ -1201,9 +1607,7 @@ static void run_pid_control_pos(float angle_now, float angle_set, float dt) {
 	// TODO: Are there problems with this approach?
 	static float dt_int = 0.0;
 	dt_int += dt;
-	if (error == prev_error) {
-		d_term = 0.0;
-	} else {
+	if (error != prev_error) {
 		d_term = (error - prev_error) * (m_conf->p_pid_kd / dt_int);
 		dt_int = 0.0;
 	}

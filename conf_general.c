@@ -422,6 +422,40 @@ bool conf_general_store_mc_configuration(mc_configuration *conf) {
 	return is_ok;
 }
 
+bool conf_general_measure_cogging(void){
+	int ok_steps = 0;
+	mcconf = *mc_interface_get_configuration();
+	mcconf_old = mcconf;
+
+	mcconf.motor_type = MOTOR_TYPE_FOC;
+	mcconf.sensor_mode = SENSOR_MODE_SENSORED;
+	mc_interface_set_configuration(&mcconf);
+
+	// Wait maximum 5s for fault code to disappear
+	for (int i = 0;i < 500;i++) {
+		if (mc_interface_get_fault() == FAULT_CODE_NONE) {
+			break;
+		}
+		chThdSleepMilliseconds(10);
+	}
+
+	// Wait one second for things to get ready after
+	// the fault disappears. (will fry things otherwise...)
+	chThdSleepMilliseconds(1000);
+
+	// Disable timeout
+	systime_t tout = timeout_get_timeout_msec();
+	float tout_c = timeout_get_brake_current();
+	timeout_reset();
+	timeout_configure(60000, 0.0);
+
+	mc_interface_lock();
+
+	mc_interface_lock_override_once();
+	mc_interface_set_current(0.0);
+
+}
+
 bool conf_general_detect_motor_param(float current, float min_rpm, float low_duty,
 		float *int_limit, float *bemf_coupling_k, int8_t *hall_table, int *hall_res) {
 

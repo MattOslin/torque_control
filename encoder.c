@@ -26,6 +26,7 @@
 
 // Defines
 #define AS5047P_READ_ANGLECOM		(0x3FFF | 0x4000 | 0x8000) // This is just ones
+#define AS5047P_READ_DIAAGC			(0x3FFC | 0x4000 | 0x8000)
 #define AS5047_SAMPLE_RATE_HZ		20000
 
 #if AS5047_USE_HW_SPI_PINS
@@ -70,12 +71,18 @@ static bool index_found = false;
 static uint32_t enc_counts = 10000;
 static encoder_mode mode = ENCODER_MODE_NONE;
 static float last_enc_angle = 0.0;
+volatile uint16_t last_message;
 
 // Private functions
 static void spi_transfer(uint16_t *in_buf, const uint16_t *out_buf, int length);
 static void spi_begin(void);
 static void spi_end(void);
 static void spi_delay(void);
+
+
+uint16_t encoder_last_message(void){
+	return last_message;
+}
 
 void encoder_deinit(void) {
 	nvicDisableVector(HW_ENC_EXTI_CH);
@@ -148,10 +155,11 @@ void encoder_init_as5047p_spi(void) {
 	palSetPadMode(SPI_SW_SCK_GPIO, SPI_SW_SCK_PIN, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
 	palSetPadMode(SPI_SW_CS_GPIO, SPI_SW_CS_PIN, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
 
-	// Set MOSI to 1
+	// Turn on MOSI
 #if AS5047_USE_HW_SPI_PINS
 	palSetPadMode(SPI_SW_MOSI_GPIO, SPI_SW_MOSI_PIN, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST);
-	palSetPad(SPI_SW_MOSI_GPIO, SPI_SW_MOSI_PIN);
+	// Previous implementation held mosi high at all times
+	//palSetPad(SPI_SW_MOSI_GPIO, SPI_SW_MOSI_PIN);
 #endif
 
 	// Enable timer clock
@@ -241,9 +249,13 @@ void encoder_reset(void) {
 void encoder_tim_isr(void) {
 	uint16_t pos;
 
+	//const uint16_t message = AS5047P_READ_DIAAGC;
+
 	spi_begin();
 	spi_transfer(&pos, 0, 1);
 	spi_end();
+
+	last_message = pos;
 
 	pos &= 0x3FFF;
 	last_enc_angle = ((float)pos * 360.0) / 16384.0;
@@ -276,11 +288,12 @@ bool encoder_index_found(void) {
 // Software SPI
 static void spi_transfer(uint16_t *in_buf, const uint16_t *out_buf, int length) {
 	for (int i = 0;i < length;i++) {
+
 		uint16_t send = out_buf ? out_buf[i] : 0xFFFF;
 		uint16_t recieve = 0;
 
 		for (int bit = 0;bit < 16;bit++) {
-			//palWritePad(HW_SPI_PORT_MOSI, HW_SPI_PIN_MOSI, send >> 15);
+			palWritePad(HW_SPI_PORT_MOSI, HW_SPI_PIN_MOSI, send >> 15);
 			send <<= 1;
 
 			spi_delay();
