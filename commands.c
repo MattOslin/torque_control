@@ -652,7 +652,7 @@ void commands_process_packet(unsigned char *data, unsigned int len) {
 
 		float r = 0.0;
 		float l = 0.0;
-		bool res = FALSE; //mcpwm_foc_measure_res_ind(&r, &l);
+		bool res = mcpwm_foc_measure_res_ind(&r, &l);
 		mc_interface_set_configuration(&mcconf_old);
 
 		if (!res) {
@@ -759,7 +759,7 @@ void commands_process_packet(unsigned char *data, unsigned int len) {
 			mc_interface_set_configuration(&mcconf);
 
 			uint8_t hall_tab[8];
-			bool res = FALSE; //mcpwm_foc_hall_detect(current, hall_tab);
+			bool res = mcpwm_foc_hall_detect(current, hall_tab);
 			mc_interface_set_configuration(&mcconf_old);
 
 			ind = 0;

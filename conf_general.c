@@ -452,7 +452,18 @@ bool conf_general_measure_cogging(void){
 	mc_interface_lock();
 
 	mc_interface_lock_override_once();
-	mc_interface_set_current(0.0);
+	mc_interface_set_pid_pos(100.0);
+	float tol = 0.5;
+	while(mc_interface_get_pid_pos_now()<100.0-tol || mc_interface_get_pid_pos_now()>100.0+tol){
+		chThdSleepMilliseconds(1);
+	}
+
+	// Restore settings
+	mc_interface_set_configuration(&mcconf_old);
+	timeout_configure(tout, tout_c);
+
+	mc_interface_unlock();
+
 
 }
 

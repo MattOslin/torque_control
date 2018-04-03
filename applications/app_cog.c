@@ -84,7 +84,7 @@ static THD_FUNCTION(cog_thread, arg) {
 		// Meat and Potatoes------------------------------------------------
 		//commands_printf("Error: %.2f",(double)utils_angle_difference(mc_interface_get_pid_pos_set(), mc_interface_get_pid_pos_now()));
 		//commands_printf("Message: %x", encoder_last_message());
-		commands_printf("Pos: %.2f", (double)mc_interface_get_pid_pos_now());
+		//commands_printf("Pos: %.2f", (double)mc_interface_get_pid_pos_now());
 
 		// End Meat and Potatoes--------------------------------------------
 
@@ -105,17 +105,11 @@ static THD_FUNCTION(anticogging_thread, arg){
 		// Wait for start command
 		chEvtWaitAny((eventmask_t) 1);
 		commands_printf("Started anticogging routine");
-		mc_interface_set_duty(0.5);
 
-		mc_interface_set_pid_pos(100.0);
-		mc_interface_lock();
-		float tol = 0.5;
-		while(mc_interface_get_pid_pos_now()<100.0-tol || mc_interface_get_pid_pos_now()>100.0+tol){
-			chThdSleepMilliseconds(1);
-		}
+		conf_general_measure_cogging();
+
+
 		commands_printf("Got there!");
-		mc_interface_unlock();
-		//conf_general_anticogging(0.0, 2);
 	}
 
 }

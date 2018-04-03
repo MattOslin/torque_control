@@ -171,5 +171,6 @@ bool conf_general_detect_motor_param(float current, float min_rpm, float low_dut
 		float *int_limit, float *bemf_coupling_k, int8_t *hall_table, int *hall_res);
 bool conf_general_measure_flux_linkage(float current, float duty,
 		float min_erpm, float res, float *linkage);
+bool conf_general_measure_cogging(void);
 
 #endif /* CONF_GENERAL_H_ */
