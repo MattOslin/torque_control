@@ -117,6 +117,8 @@ static volatile int m_curr2_offset;
 
 // Private functions
 static void do_dc_cal(void);
+static void pll_run(float phase, float dt, volatile float *phase_var,
+		volatile float *speed_var);
 static void control_current(volatile motor_state_t *state_m, float dt);
 static void svm(float alpha, float beta, uint32_t PWMHalfPeriod,
 		uint32_t* tAout, uint32_t* tBout, uint32_t* tCout, uint32_t *svm_sector);
@@ -1693,6 +1695,9 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 			sqrtf(m_motor_state.mod_d * m_motor_state.mod_d +
 					m_motor_state.mod_q * m_motor_state.mod_q) / SQRT3_BY_2;
 
+	// Run PLL for speed estimation
+	pll_run(m_motor_state.phase, dt, &m_pll_phase, &m_pll_speed);
+
 	// Track position control angle
 	float angle_now = 0.0;
 	if (encoder_is_configured()) {
@@ -1787,6 +1792,16 @@ static void do_dc_cal(void) {
 	m_dccal_done = true;
 }
 
+static void pll_run(float phase, float dt, volatile float *phase_var,
+		volatile float *speed_var) {
+	UTILS_NAN_ZERO(*phase_var);
+	float delta_theta = phase - *phase_var;
+	utils_norm_angle_rad(&delta_theta);
+	UTILS_NAN_ZERO(*speed_var);
+	*phase_var += (*speed_var + m_conf->foc_pll_kp * delta_theta) * dt;
+	utils_norm_angle_rad((float*)phase_var);
+	*speed_var += m_conf->foc_pll_ki * delta_theta * dt;
+}
 
 /**
  * Run the current control loop.

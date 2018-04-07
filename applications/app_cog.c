@@ -85,6 +85,7 @@ static THD_FUNCTION(cog_thread, arg) {
 		//commands_printf("Error: %.2f",(double)utils_angle_difference(mc_interface_get_pid_pos_set(), mc_interface_get_pid_pos_now()));
 		//commands_printf("Message: %x", encoder_last_message());
 		//commands_printf("Pos: %.2f", (double)mc_interface_get_pid_pos_now());
+		//commands_printf("Size: %u", sizeof(float));
 
 		// End Meat and Potatoes--------------------------------------------
 
@@ -109,7 +110,7 @@ static THD_FUNCTION(anticogging_thread, arg){
 		conf_general_measure_cogging();
 
 
-		commands_printf("Got there!");
+		commands_printf("Done anticogging!");
 	}
 
 }

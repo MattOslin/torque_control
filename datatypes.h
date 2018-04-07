@@ -599,4 +599,8 @@ typedef enum {
 	NRF_PAIR_FAIL
 } NRF_PAIR_RES;
 
+typedef struct {
+	float cog_i[1000];
+} cog_map;
+
 #endif /* DATATYPES_H_ */

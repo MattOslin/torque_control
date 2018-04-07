@@ -45,8 +45,9 @@
 #include "appconf_default.h"
 
 // EEPROM settings
-#define EEPROM_BASE_MCCONF		1000
-#define EEPROM_BASE_APPCONF		2000
+#define EEPROM_BASE_MCCONF		0
+#define EEPROM_BASE_APPCONF		500
+#define EEPROM_BASE_COG			1000
 
 // Global variables
 uint16_t VirtAddVarTab[NB_OF_VAR];
@@ -422,50 +423,6 @@ bool conf_general_store_mc_configuration(mc_configuration *conf) {
 	return is_ok;
 }
 
-bool conf_general_measure_cogging(void){
-	int ok_steps = 0;
-	mcconf = *mc_interface_get_configuration();
-	mcconf_old = mcconf;
-
-	mcconf.motor_type = MOTOR_TYPE_FOC;
-	mcconf.sensor_mode = SENSOR_MODE_SENSORED;
-	mc_interface_set_configuration(&mcconf);
-
-	// Wait maximum 5s for fault code to disappear
-	for (int i = 0;i < 500;i++) {
-		if (mc_interface_get_fault() == FAULT_CODE_NONE) {
-			break;
-		}
-		chThdSleepMilliseconds(10);
-	}
-
-	// Wait one second for things to get ready after
-	// the fault disappears. (will fry things otherwise...)
-	chThdSleepMilliseconds(1000);
-
-	// Disable timeout
-	systime_t tout = timeout_get_timeout_msec();
-	float tout_c = timeout_get_brake_current();
-	timeout_reset();
-	timeout_configure(60000, 0.0);
-
-	mc_interface_lock();
-
-	mc_interface_lock_override_once();
-	mc_interface_set_pid_pos(100.0);
-	float tol = 0.5;
-	while(mc_interface_get_pid_pos_now()<100.0-tol || mc_interface_get_pid_pos_now()>100.0+tol){
-		chThdSleepMilliseconds(1);
-	}
-
-	// Restore settings
-	mc_interface_set_configuration(&mcconf_old);
-	timeout_configure(tout, tout_c);
-
-	mc_interface_unlock();
-
-
-}
 
 bool conf_general_detect_motor_param(float current, float min_rpm, float low_duty,
 		float *int_limit, float *bemf_coupling_k, int8_t *hall_table, int *hall_res) {
@@ -822,4 +779,64 @@ bool conf_general_measure_flux_linkage(float current, float duty,
 	*linkage = avg_voltage * 60.0 / (sqrtf(3.0) * 2.0 * M_PI * avg_rpm);
 
 	return true;
+}
+
+// Use anticogging algorithm to measure cog current at each encoder point
+bool conf_general_measure_cogging(void){
+	mcconf = *mc_interface_get_configuration();
+	mcconf_old = mcconf;
+
+	mcconf.motor_type = MOTOR_TYPE_FOC;
+	mcconf.sensor_mode = SENSOR_MODE_SENSORED;
+	mc_interface_set_configuration(&mcconf);
+
+	// Wait maximum 5s for fault code to disappear
+	for (int i = 0;i < 500;i++) {
+		if (mc_interface_get_fault() == FAULT_CODE_NONE) {
+			break;
+		}
+		chThdSleepMilliseconds(10);
+	}
+
+	// Wait one second for things to get ready after
+	// the fault disappears. (will fry things otherwise...)
+	chThdSleepMilliseconds(1000);
+
+	// Disable timeout
+	systime_t tout = timeout_get_timeout_msec();
+	float tout_c = timeout_get_brake_current();
+	timeout_reset();
+	timeout_configure(60000, 0.0);
+
+	mc_interface_lock();
+
+	//Got to zero
+	mc_interface_lock_override_once();
+	mc_interface_set_pid_pos(0.0);
+	float tol = 0.1;
+
+	while(mc_interface_get_pid_pos_now()<0.0-tol || mc_interface_get_pid_pos_now()>0.0+tol){
+		chThdSleepMilliseconds(1);
+	}
+
+	//Go to each position
+	for(float i = 0;i<360;i+=360.0/100){
+		mc_interface_lock_override_once();
+		mc_interface_set_pid_pos(i);
+		chThdSleepMilliseconds(1);
+		while(mc_interface_get_pid_pos_now()<0.0-tol || mc_interface_get_pid_pos_now()>0.0+tol || mc_interface_get_rpm()>0.1){
+			chThdSleepMilliseconds(1);
+		}
+	}
+
+	mc_interface_lock_override_once();
+	mc_interface_release_motor();
+
+	// Restore settings
+	mc_interface_set_configuration(&mcconf_old);
+	timeout_configure(tout, tout_c);
+
+	mc_interface_unlock();
+
+	return TRUE;
 }

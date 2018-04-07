@@ -59,18 +59,10 @@
 #define MCCONF_S_PID_MIN_RPM			1200.0	// Minimum allowed RPM
 
 // Position PID parameters
-#ifndef MCCONF_P_PID_KP
-#define MCCONF_P_PID_KP                 0.03    // Proportional gain
-#endif
-#ifndef MCCONF_P_PID_KI
-#define MCCONF_P_PID_KI                 0.0     // Integral gain
-#endif
-#ifndef MCCONF_P_PID_KD
-#define MCCONF_P_PID_KD                 0.0004  // Derivative gain
-#endif
-#ifndef MCCONF_P_PID_ANG_DIV
+#define MCCONF_P_PID_KP                 0.2     // Proportional gain
+#define MCCONF_P_PID_KI                 0.1     // Integral gain
+#define MCCONF_P_PID_KD                 0.01    // Derivative gain
 #define MCCONF_P_PID_ANG_DIV            1.0     // Divide angle by this value
-#endif
 
 #define MCCONF_M_SENSOR_PORT_MODE       SENSOR_PORT_MODE_AS5047_SPI
 

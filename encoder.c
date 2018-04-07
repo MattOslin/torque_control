@@ -190,6 +190,7 @@ float encoder_read_deg(void) {
 		break;
 
 	case ENCODER_MODE_AS5047P_SPI:
+		utils_norm_angle(&last_enc_angle);
 		angle = last_enc_angle;
 		break;
 
@@ -246,7 +247,7 @@ void encoder_tim_isr(void) {
 	spi_end();
 
 	pos &= 0x3FFF;
-	last_enc_angle = ((float)pos * 360.0) / 16384.0;
+	last_enc_angle -= 0.01*utils_angle_difference(last_enc_angle, ((float)pos * 360.0) / 16384.0);
 }
 
 /**
