@@ -7,6 +7,7 @@
 #include "commands.h" // To print
 #include "utils.h" // For fun
 #include "encoder.h"
+#include "mcpwm_foc.h" // For anticogging
  
 // Threads
 static THD_FUNCTION(cog_thread, arg);
@@ -107,8 +108,16 @@ static THD_FUNCTION(anticogging_thread, arg){
 		chEvtWaitAny((eventmask_t) 1);
 		commands_printf("Started anticogging routine");
 
-		conf_general_measure_cogging();
+		static mc_configuration mcconf, mcconf_old; // Static to save some stack space
+		mcconf = *mc_interface_get_configuration();
+		mcconf_old = mcconf;
 
+		mcconf.motor_type = MOTOR_TYPE_FOC;
+		mc_interface_set_configuration(&mcconf);
+
+		mcpwm_foc_measure_cogging();
+		
+		mc_interface_set_configuration(&mcconf_old);
 
 		commands_printf("Done anticogging!");
 	}

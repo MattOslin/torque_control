@@ -72,6 +72,7 @@ bool mcpwm_foc_measure_res_ind(float *res, float *ind);
 bool mcpwm_foc_hall_detect(float current, uint8_t *hall_table);
 void mcpwm_foc_print_state(void);
 float mcpwm_foc_get_last_inj_adc_isr_duration(void);
+bool mcpwm_foc_measure_cogging(void);
 
 // Interrupt handlers
 void mcpwm_foc_tim_sample_int_handler(void);

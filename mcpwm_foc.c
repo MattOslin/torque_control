@@ -109,6 +109,8 @@ static volatile float last_inj_adc_isr_duration;
 static volatile float m_pos_pid_now;
 static volatile bool m_init_done;
 static volatile float m_gamma_now;
+static volatile bool measure_cogging_now;
+static volatile float m_v_set;
 
 #ifdef HW_HAS_3_SHUNTS
 static volatile int m_curr2_sum;
@@ -126,6 +128,7 @@ static void run_pid_control_pos(float angle_now, float angle_set, float dt);
 static void run_pid_control_speed(float dt);
 static void stop_pwm_hw(void);
 static void start_pwm_hw(void);
+static void run_pid_control_voltage(float angle_now, float angle_set, float dt);
 
 // Threads
 static THD_WORKING_AREA(timer_thread_wa, 2048);
@@ -224,6 +227,8 @@ void mcpwm_foc_init(volatile mc_configuration *configuration) {
 	last_inj_adc_isr_duration = 0;
 	m_pos_pid_now = 0.0;
 	m_gamma_now = 0.0;
+	measure_cogging_now = false;
+	m_v_set = 0.0;
 	memset((void*)&m_motor_state, 0, sizeof(motor_state_t));
 	memset((void*)&m_samples, 0, sizeof(mc_sample_t));
 
@@ -1717,6 +1722,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 	// Run position control
 	if (m_state == MC_STATE_RUNNING) {
 		run_pid_control_pos(m_pos_pid_now, m_pos_pid_set, dt);
+		run_pid_control_voltage(m_pos_pid_now, m_pos_pid_set, dt);
 	}
 
 	// MCIF handler
@@ -1854,10 +1860,15 @@ static void control_current(volatile motor_state_t *state_m, float dt) {
 	float Ierr_d = state_m->id_target - state_m->id;
 	float Ierr_q = state_m->iq_target - state_m->iq;
 
-	state_m->vd = state_m->vd_int + Ierr_d * m_conf->foc_current_kp;
-	state_m->vq = state_m->vq_int + Ierr_q * m_conf->foc_current_kp;
-	state_m->vd_int += Ierr_d * (m_conf->foc_current_ki * dt);
-	state_m->vq_int += Ierr_q * (m_conf->foc_current_ki * dt);
+	if(measure_cogging_now){
+		state_m->vd = 0.0;
+		state_m->vq = m_v_set;
+	}else{
+		state_m->vd = state_m->vd_int + Ierr_d * m_conf->foc_current_kp;
+		state_m->vq = state_m->vq_int + Ierr_q * m_conf->foc_current_kp;
+		state_m->vd_int += Ierr_d * (m_conf->foc_current_ki * dt);
+		state_m->vq_int += Ierr_q * (m_conf->foc_current_ki * dt);
+	}
 
 	// Saturation
 	utils_saturate_vector_2d((float*)&state_m->vd, (float*)&state_m->vq,
@@ -2207,4 +2218,106 @@ static void start_pwm_hw(void) {
 	m_output_on = true;
 }
 
+// Use anticogging algorithm to measure cog current at each encoder point
+bool mcpwm_foc_measure_cogging(void){
+	mc_interface_lock();
+
+	measure_cogging_now = true;
+	m_id_set = 0.0;
+	m_iq_set = 0.0;
+	m_v_set = 0.0;
+	m_control_mode = CONTROL_MODE_CURRENT;
+	m_state = MC_STATE_RUNNING;
+
+	// Disable timeout
+	systime_t tout = timeout_get_timeout_msec();
+	float tout_c = timeout_get_brake_current();
+	timeout_reset();
+	timeout_configure(60000, 0.0);
+
+
+	m_pos_pid_set = 0.0;
+	float tol = 0.02;
+
+	while(m_pos_pid_now<0.0-tol || m_pos_pid_now>0.0+tol || fabsf(m_pll_speed)>0.2){
+		chThdSleepMilliseconds(100);
+	}
+
+	commands_printf("Got to zero");
+
+	//Go to each position
+	for(float i = 0;i<360;i+=360.0/360){
+		m_pos_pid_set = i;
+	}
+
+	m_id_set = 0.0;
+	m_iq_set = 0.0;
+	m_v_set = 0.0;
+	m_control_mode = CONTROL_MODE_NONE;
+	m_state = MC_STATE_OFF;
+	stop_pwm_hw();
+
+	// Enable timeout
+	timeout_configure(tout, tout_c);
+
+	mc_interface_unlock();
+
+	return TRUE;
+}
+
+void run_pid_control_voltage(float angle_now, float angle_set, float dt){
+	const float kp = 0.01;
+	const float ki = 0.01;
+	const float kd = 0.0;
+	const float max_v = 8.0;
+
+	static float i_term = 0;
+	static float prev_error = 0;
+	float p_term;
+	static float d_term = 0;
+
+	// Voltage PID is off. Return.
+	if (!measure_cogging_now) {
+		i_term = 0;
+		prev_error = 0;
+		return;
+	}
+
+	// Compute parameters
+	float error = utils_angle_difference(angle_set, angle_now);
+
+	if (encoder_is_configured()) {
+		if (m_conf->foc_encoder_inverted) {
+			error = -error;
+		}
+	}
+
+	p_term = error * kp;
+	i_term += error * ki * dt;
+
+	// Average DT for the D term when the error does not change. This likely
+	// happens at low speed when the position resolution is low and several
+	// control iterations run without position updates.
+	static float dt_int = 0.0;
+	dt_int += dt;
+	if (error == prev_error) {
+		//d_term = 0.0;
+	} else {
+		d_term = (error - prev_error) * (kd / dt_int);
+		dt_int = 0.0;
+	}
+
+	// I-term wind-up protection
+	utils_truncate_number_abs(&p_term, max_v);
+	utils_truncate_number_abs(&i_term, max_v - fabsf(p_term));
+
+	// Store previous error
+	prev_error = error;
+
+	// Calculate output
+	float output = p_term + i_term + d_term;
+	utils_truncate_number(&output, -max_v, max_v);
+
+	m_v_set = output;
+}
 

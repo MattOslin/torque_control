@@ -168,10 +168,10 @@ void commands_process_packet(unsigned char *data, unsigned int len) {
 		buffer_append_float16(send_buffer, mc_interface_temp_motor_filtered(), 1e1, &ind);
 		buffer_append_float32(send_buffer, mc_interface_read_reset_avg_motor_current(), 1e2, &ind);
 		buffer_append_float32(send_buffer, mc_interface_read_reset_avg_input_current(), 1e2, &ind);
-		buffer_append_float32(send_buffer, mc_interface_read_reset_avg_id(), 1e2, &ind);
-		buffer_append_float32(send_buffer, mc_interface_read_reset_avg_iq(), 1e2, &ind);
+		buffer_append_float32(send_buffer, mc_interface_read_reset_avg_id(), 1e5, &ind);
+		buffer_append_float32(send_buffer, mc_interface_read_reset_avg_iq(), 1e5, &ind);
 		buffer_append_float16(send_buffer, mc_interface_get_duty_cycle_now(), 1e3, &ind);
-		buffer_append_float32(send_buffer, mc_interface_get_rpm(), 1e0, &ind);
+		buffer_append_float32(send_buffer, mc_interface_get_rpm(), 1e3, &ind);
 		buffer_append_float16(send_buffer, GET_INPUT_VOLTAGE(), 1e1, &ind);
 		buffer_append_float32(send_buffer, mc_interface_get_amp_hours(false), 1e4, &ind);
 		buffer_append_float32(send_buffer, mc_interface_get_amp_hours_charged(false), 1e4, &ind);
