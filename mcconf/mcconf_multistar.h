@@ -39,7 +39,7 @@
 
 // FOC settings
 #define MCCONF_FOC_CURRENT_KP			0.03
-#define MCCONF_FOC_CURRENT_KI			50.0
+#define MCCONF_FOC_CURRENT_KI			0.0
 #define MCCONF_FOC_F_SW					20000.0
 #define MCCONF_FOC_MOTOR_L				0.000007
 #define MCCONF_FOC_MOTOR_R				0.015
@@ -49,7 +49,7 @@
 #define MCCONF_FOC_SL_OPENLOOP_HYST		0.5
 #define MCCONF_FOC_SL_OPENLOOP_TIME		0.5
 #define MCCONF_FOC_ENCODER_INVERTED 	0
-#define MCCONF_FOC_ENCODER_OFFSET 		327.83
+#define MCCONF_FOC_ENCODER_OFFSET 		327.92
 #define MCCONF_FOC_ENCODER_RATIO 		7
 
 // Speed PID parameters
@@ -65,5 +65,7 @@
 #define MCCONF_P_PID_ANG_DIV            1.0     // Divide angle by this value
 
 #define MCCONF_M_SENSOR_PORT_MODE       SENSOR_PORT_MODE_AS5047_SPI
+
+#define MCCONF_FOC_TEMP_COMP			true	// True uses anticogging
 
 #endif /* MCCONF_MULTISTAR_H_ */

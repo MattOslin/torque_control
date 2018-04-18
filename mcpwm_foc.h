@@ -83,5 +83,6 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags);
 #define MCPWM_FOC_INDUCTANCE_SAMPLE_RISE_COMP		50 // Current rise time compensation
 #define MCPWM_FOC_I_FILTER_CONST					0.1 // Filter constant for the current filters
 #define MCPWM_FOC_CURRENT_SAMP_OFFSET				(2) // Offset from timer top for injected ADC samples
+#define ENCODER_TICKS                               5000 // number of discrete positions
 
 #endif /* MCPWM_FOC_H_ */

@@ -47,7 +47,7 @@
 // EEPROM settings
 #define EEPROM_BASE_MCCONF		0
 #define EEPROM_BASE_APPCONF		500
-#define EEPROM_BASE_COG			1000
+//#define EEPROM_BASE_COG			1000
 
 // Global variables
 uint16_t VirtAddVarTab[NB_OF_VAR];
